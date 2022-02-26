@@ -1,16 +1,17 @@
-body, * {
+body,
+* {
   margin: 0;
-  font-family:  'Work Sans', sans-serif;;
+  font-family: "Work Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #17B3E2;
-
+  background-color: #17b3e2;
+  background-image: url(/public/background.png);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

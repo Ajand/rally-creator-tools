@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
 
+
 const useStyles = createUseStyles({
   root: {
     display: "flex",
@@ -19,8 +20,7 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     fontSize: "1.5em",
-    boxShadow:
-      "8px 8px black",
+    boxShadow: "8px 8px black",
     "&:hover": {
       background: "#e5b444",
     },
@@ -35,7 +35,6 @@ const Signin = (children) => {
 
   return (
     <div className={classes.root}>
-        
       <div className={classes.button}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
