@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Row, Col } from "react-grid-system";
 
@@ -113,6 +114,8 @@ const useStyles = createUseStyles({
 
 const PollBasics = (children) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [pollQuestion, setPollQuestion] = useState("");
 
   const [selectedType, setSelectedType] = useState("t");

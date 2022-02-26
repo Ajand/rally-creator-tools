@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
 import { Row, Col, Container } from "react-grid-system";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createUseStyles({
   root: {},
@@ -60,7 +61,7 @@ const useStyles = createUseStyles({
     borderRadius: 10,
     background: "white",
     boxShadow: "4px 4px black",
-    marginBottom: '2em'
+    marginBottom: "2em",
   },
   question: {
     fontSize: "1.1em",
@@ -102,11 +103,17 @@ const pollObj = {
 
 const Panel = (children) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
       <div className={classes.actions}>
-        <div className={classes.button}>Create A New Poll</div>
+        <div
+          className={classes.button}
+          onClick={() => navigate(`/create-poll`)}
+        >
+          Create A New Poll
+        </div>
       </div>
       <div className={classes.container}>
         <Row className={classes.row}>
@@ -122,7 +129,12 @@ const Panel = (children) => {
                 <div className={classes.info}>Status: {pollObj.status}</div>
               </div>
               <div className={classes.infoRow}>
-                <div className={classes.visitButton}>Visit</div>
+                <div
+                  className={classes.visitButton}
+                  onClick={() => navigate(`/poll-details/${pollObj._id}`)}
+                >
+                  Visit
+                </div>
               </div>
             </div>
           </Col>
@@ -138,7 +150,12 @@ const Panel = (children) => {
                 <div className={classes.info}>Status: {pollObj.status}</div>
               </div>
               <div className={classes.infoRow}>
-                <div className={classes.visitButton}>Visit</div>
+                <div
+                  className={classes.visitButton}
+                  onClick={() => navigate(`/poll-details/${pollObj._id}`)}
+                >
+                  Visit
+                </div>
               </div>
             </div>
           </Col>
@@ -154,7 +171,12 @@ const Panel = (children) => {
                 <div className={classes.info}>Status: {pollObj.status}</div>
               </div>
               <div className={classes.infoRow}>
-                <div className={classes.visitButton}>Visit</div>
+                <div
+                  className={classes.visitButton}
+                  onClick={() => navigate(`/poll-details/${pollObj._id}`)}
+                >
+                  Visit
+                </div>
               </div>
             </div>
           </Col>
@@ -170,7 +192,12 @@ const Panel = (children) => {
                 <div className={classes.info}>Status: {pollObj.status}</div>
               </div>
               <div className={classes.infoRow}>
-                <div className={classes.visitButton}>Visit</div>
+                <div
+                  className={classes.visitButton}
+                  onClick={() => navigate(`/poll-details/${pollObj._id}`)}
+                >
+                  Visit
+                </div>
               </div>
             </div>
           </Col>
