@@ -9,12 +9,20 @@ import TextField from "./components/TextField";
 import Checkbox from "./components/Checkbox";
 import PollBasics from "./components/PollBasics";
 
+import Router from "./router";
+
 const App = ({ label }) => {
   const [value, setValue] = useState(0);
 
   const [question, setQuestion] = useState("");
 
   const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 
   return (
     <Container>
@@ -28,13 +36,11 @@ const App = ({ label }) => {
           </div>
         </Col>
         <Col md={4}>
-
           <div style={{ margin: 10 }}>
             <PollBasics />
           </div>
         </Col>
       </Row>
-
     </Container>
   );
 };
