@@ -6,14 +6,15 @@ const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "space-between",
     borderRadius: 10,
-    overflow: 'hidden',
-    background: 'white'
+    overflow: "hidden",
+    background: "white",
+    boxShadow: "8px 4px black",
   },
 
   midTab: {
     borderLeft: "3px solid black",
     borderRight: "3px solid black",
-    width: 'calc(36% - 6px)'
+    width: "calc(36% - 6px)",
   },
   tab: {
     padding: "0.2em",
@@ -29,10 +30,10 @@ const useStyles = createUseStyles({
   },
   selectedTab: {
     background: "#5D38CE !important",
-    color: 'white',
+    color: "white",
     "&:hover": {
-        background: "#4a2da5 !important",
-      },
+      background: "#4a2da5 !important",
+    },
   },
 });
 
@@ -41,9 +42,26 @@ const CreatorTabs = ({ value, onChange = () => {} }) => {
 
   return (
     <div className={classes.root}>
-      <div onClick={() => onChange(2)} className={`${classes.tab} ${value === 2 ? classes.selectedTab: ""}`}>Styles</div>
-      <div onClick={() => onChange(1)} className={`${classes.tab} ${classes.midTab} ${value === 1 ? classes.selectedTab: ""}`}>Structure</div>
-      <div onClick={() => onChange(0)} className={`${classes.tab} ${value === 0 ? classes.selectedTab: ""}`}>Basics</div>
+      <div
+        onClick={() => onChange(2)}
+        className={`${classes.tab} ${value === 2 ? classes.selectedTab : ""}`}
+      >
+        Styles
+      </div>
+      <div
+        onClick={() => onChange(1)}
+        className={`${classes.tab} ${classes.midTab} ${
+          value === 1 ? classes.selectedTab : ""
+        }`}
+      >
+        Structure
+      </div>
+      <div
+        onClick={() => onChange(0)}
+        className={`${classes.tab} ${value === 0 ? classes.selectedTab : ""}`}
+      >
+        Basics
+      </div>
     </div>
   );
 };

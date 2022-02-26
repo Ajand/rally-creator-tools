@@ -17,6 +17,7 @@ const useStyles = createUseStyles({
     padding: "2em 3em",
     borderRadius: 10,
     background: "white",
+    boxShadow: "8px 8px black",
   },
   section: {
     marginBottom: "2em",
