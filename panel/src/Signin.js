@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createUseStyles({
   root: {
@@ -7,6 +7,7 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
+    background: "url(/background.png)",
   },
   button: {
     border: "3px solid black",
@@ -32,10 +33,11 @@ const useStyles = createUseStyles({
 
 const Signin = (children) => {
   const classes = useStyles();
+  let navigate = useNavigate();
 
   return (
     <div className={classes.root}>
-      <div className={classes.button}>
+      <div onClick={() => navigate("polls-manager")} className={classes.button}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="50"
