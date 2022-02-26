@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Row, Col, Container } from "react-grid-system";
+import { useNavigate } from "react-router-dom";
+
 import PollBasics from "./components/PollBasics";
 import CreatorTabs from "./components/CreatorTabs";
-import { useNavigate } from "react-router-dom";
+import PollWidget from "./components/PollWidget";
 
 const useStyles = createUseStyles({
   actions: {
@@ -59,7 +61,20 @@ const CreatePoll = (children) => {
         </Col>
         <Col md={4}>
           <div style={{ margin: 10 }}>
-            <PollBasics />
+            <PollWidget
+              poll={{
+                basics: {
+                  variant: "t",
+                  question:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                },
+                style: {
+                  question: {
+                    
+                  }
+                }
+              }}
+            />
           </div>
         </Col>
       </Row>
