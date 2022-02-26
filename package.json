@@ -1,0 +1,16 @@
+{
+  "name": "rally",
+  "private": "true",
+  "workspaces": [
+    "panel",
+    "server"
+  ],
+  "scripts": {
+    "dev:server": "yarn workspace server dev",
+    "dev:panel": "yarn workspace panel start",
+    "dev": "concurrently \"yarn dev:server\"  \"yarn dev:panel\" -k"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
