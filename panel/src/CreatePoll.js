@@ -7,6 +7,7 @@ import PollBasics from "./components/PollBasics";
 import CreatorTabs from "./components/CreatorTabs";
 import PollWidget from "./components/PollWidget";
 import PollStructure from "./components/PollStructure";
+import PollStyles from "./components/PollsStyles";
 
 const useStyles = createUseStyles({
   actions: {
@@ -71,6 +72,11 @@ const CreatePoll = (children) => {
           {value === 1 && (
             <div style={{ margin: 10 }}>
               <PollStructure poll={poll} setPoll={setPoll} />
+            </div>
+          )}
+          {value === 2 && (
+            <div style={{ margin: 10 }}>
+              <PollStyles poll={poll} setPoll={setPoll} />
             </div>
           )}
         </Col>
