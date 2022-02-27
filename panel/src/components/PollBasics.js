@@ -59,6 +59,7 @@ const useStyles = createUseStyles({
   },
   imageOptionContainer: {
     border: `3px solid black`,
+    boxShadow: "4px 4px black",
     boxSizing: "border",
     marginBottom: "1em",
     padding: "1em",
@@ -75,6 +76,7 @@ const useStyles = createUseStyles({
     cursor: "pointer",
     fontWeight: "bold",
     transition: "200ms",
+
     "&:hover": {
       background: "#e5b444",
     },
@@ -83,6 +85,7 @@ const useStyles = createUseStyles({
     width: "100%",
     borderRadius: 10,
     border: "3px solid black",
+
     //padding: '1em',
     boxSizing: "border-box",
   },

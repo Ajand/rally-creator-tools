@@ -21,6 +21,7 @@ const useStyles = createUseStyles({
     background: "white",
     padding: "2px 10px 2px 10px",
     border: `2px solid black`,
+    boxShadow: "2px 2px black",
     borderRadius: 20,
   },
   input: {
@@ -29,10 +30,12 @@ const useStyles = createUseStyles({
     padding: "1em",
     boxSizing: "border-box",
     border: `3px solid black`,
+    boxShadow: "4px 4px black",
     borderRadius: 10,
     outline: 'none',
     fontSize: 15,
     paddingLeft: 25,
+    marginBottom: '0.5em',
     "&:focus + $label": {
       left: 30,
       top: -12,
@@ -40,6 +43,7 @@ const useStyles = createUseStyles({
       background: "#FEC84B",
       padding: "2px 10px 2px 10px",
       border: `2px solid black`,
+      boxShadow: "2px 2px black",
       borderRadius: 20,
     },
   },
