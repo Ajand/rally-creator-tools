@@ -10,6 +10,9 @@ const useStyles = createUseStyles({
     boxShadow: "8px 8px black",
     marginBottom: "2em",
   },
+  section: {
+    marginBottom: "3em",
+  },
   title: {
     fontSize: 24,
   },
@@ -37,6 +40,9 @@ const PollStructure = ({ poll, setPoll }) => {
   const selectedType = poll.structure;
   const setSelectedType = (t) => setPoll({ ...poll, structure: t });
 
+  const showVotes = poll.showVotes;
+  const setShowVotes = (t) => setPoll({ ...poll, showVotes: t });
+
   return (
     <div className={classes.root}>
       <div className={classes.section}>
@@ -63,6 +69,25 @@ const PollStructure = ({ poll, setPoll }) => {
         >
           <Checkbox checked={selectedType === "quadratic"} />
           <p className={classes.optionLabel}>Quadatic Voting</p>
+        </div>
+      </div>
+      <div>
+        <div className={classes.titleRow}>
+          <p className={classes.title}>Show Votes:</p>
+        </div>
+        <div
+          onClick={() => setShowVotes(true)}
+          className={classes.optionTypeRow}
+        >
+          <Checkbox checked={showVotes === true} />
+          <p className={classes.optionLabel}>Yes</p>
+        </div>
+        <div
+          onClick={() => setShowVotes(false)}
+          className={classes.optionTypeRow}
+        >
+          <Checkbox checked={showVotes === false} />
+          <p className={classes.optionLabel}>No</p>
         </div>
       </div>
     </div>

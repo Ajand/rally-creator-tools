@@ -24,6 +24,7 @@ const useStyles = createUseStyles({
   },
   checked: {
     background: "#DD2A81",
+
     "&:hover": {
       background: "#c72674",
     },

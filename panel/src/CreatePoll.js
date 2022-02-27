@@ -41,6 +41,7 @@ const CreatePoll = (children) => {
     basics: {},
     styles: {},
     structure: "simple",
+    showVotes: true,
   });
 
   return (
