@@ -3,6 +3,7 @@ import Checkbox from "./Checkbox";
 import Select from "react-select";
 import googleFonts from "../googleFonts";
 import { useState, useEffect } from "react";
+import { Row, Col } from "react-grid-system";
 
 const useStyles = createUseStyles({
   root: {
@@ -82,52 +83,121 @@ const customStyles = {
 const PollStructure = ({ poll, setPoll }) => {
   const classes = useStyles();
 
-  const [fontFamily, setFontFamily] = useState("");
+  const {
+    questionFontFamily,
+    questionFontVariant,
+    questionFontSize,
+    questionFontStyle,
+  } = poll.styles;
+  const setQuestionFontFamily = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, questionFontFamily: e } });
 
-  const [fontVariant, setFontVariant] = useState("");
+  const setQuestionFonVariant = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, questionFontVariant: e } });
 
-  useEffect(() => {
-    setFontVariant("");
-  }, [fontFamily]);
+  const setQuestionFontSize = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, questionFontSize: e } });
+
+  const setQuestionFontStyle = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, questionFontStyle: e } });
 
   return (
     <div className={classes.root}>
-      <div className={classes.section}>
-        <div className={classes.titleRow}>
-          <p className={classes.title}>Question Font Family:</p>
-        </div>
-        <div>
-          <Select
-            onChange={(e) => setFontFamily(e.value)}
-            autoComplete
-            options={fontOptions}
-            styles={customStyles}
-          />
-        </div>
-      </div>
-      <div className={classes.section}>
-        <div className={classes.titleRow}>
-          <p className={classes.title}>Question Font Weight:</p>
-        </div>
-        <div>
-          <Select
-            isDisabled={!fontFamily}
-            autoComplete
-            options={
-              fontFamily
-                ? googleFonts.items
-                    .find((item) => item.family === fontFamily)
-                    .variants.map((variant) => ({
-                      value: variant,
-                      label: variant,
-                    }))
-                : []
-            }
-            onChange={(e) => setFontVariant(e.value)}
-            styles={customStyles}
-          />
-        </div>
-      </div>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Question Font Family:</p>
+            </div>
+            <div>
+              <Select
+                onChange={(e) => setQuestionFontFamily(e.value)}
+                autoComplete
+                options={fontOptions}
+                styles={customStyles}
+                defaultValue={{
+                  label: questionFontFamily,
+                  value: questionFontFamily,
+                }}
+              />
+            </div>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Question Font Weight:</p>
+            </div>
+            <div>
+              <Select
+                isDisabled={!questionFontFamily}
+                autoComplete
+                defaultValue={{
+                  label: questionFontVariant,
+                  value: questionFontVariant,
+                }}
+                options={
+                  questionFontFamily
+                    ? googleFonts.items
+                        .find((item) => item.family === questionFontFamily)
+                        .variants.map((variant) => ({
+                          value: variant,
+                          label: variant,
+                        }))
+                    : []
+                }
+                onChange={(e) => setQuestionFonVariant(e.value)}
+                styles={customStyles}
+              />
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Question Font Size:</p>
+            </div>
+            <div>
+              <Select
+                autoComplete
+                defaultValue={{
+                  label: questionFontSize,
+                  value: questionFontSize,
+                }}
+                options={Array(99)
+                  .fill(0)
+                  .map((v, i) => ({ value: i + 1, label: i + 1 }))}
+                onChange={(e) => setQuestionFontSize(e.value)}
+                styles={customStyles}
+              />
+            </div>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Question Font Style:</p>
+            </div>
+            <div>
+              <Select
+                autoComplete
+                defaultValue={{
+                  label: questionFontStyle,
+                  value: questionFontStyle,
+                }}
+                options={[
+                  { label: "Normal", value: "normal" },
+                  { label: "Italic", value: "italic" },
+                ]}
+                onChange={(e) => setQuestionFontStyle(e.value)}
+                styles={customStyles}
+              />
+            </div>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

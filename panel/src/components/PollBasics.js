@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
     borderRadius: 10,
     background: "white",
     boxShadow: "8px 8px black",
-    marginBottom: "2em"
+    marginBottom: "2em",
   },
   section: {
     marginBottom: "2em",
@@ -117,11 +117,13 @@ const useStyles = createUseStyles({
   },
 });
 
-const PollBasics = (children) => {
+const PollBasics = ({ poll, setPoll }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [pollQuestion, setPollQuestion] = useState("");
+  const pollQuestion = poll.basics.question;
+  const setPollQuestion = (q) =>
+    setPoll({ ...poll, basics: { ...poll.basics, question: q } });
 
   const [selectedType, setSelectedType] = useState("t");
 

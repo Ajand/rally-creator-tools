@@ -18,27 +18,41 @@ const PollWidget = ({ poll }) => {
   const renderProper = () => {
     switch (poll.basics.variant) {
       case "t":
-        return null //<div>Hello</div>;
+        return null; //<div>Hello</div>;
     }
   };
+
+  const fontsSet = new Set([poll.styles.questionFontFamily]);
+
+  console.log(
+    [...fontsSet].map((font) => {
+      console.log(font);
+      return {
+        font,
+        //  weights: [poll.styles?.questionFontVariant],
+      };
+    })
+  );
 
   return (
     <>
       <GoogleFontLoader
-        fonts={[
-          {
-            font: "Roboto",
-            weights: [400, "400i"],
-          },
-          {
-            font: "Roboto Mono",
-            weights: [400, 700],
-          },
-        ]}
-        subsets={["cyrillic-ext", "greek"]}
+        fonts={[...fontsSet].map((font) => ({
+          font,
+          weights: [poll.questionFontVariant],
+        }))}
       />
       <div className={classes.root}>
-        <div  style={{ fontFamily: 'Roboto Mono, monospaced' }}>{poll.basics.question}</div>
+        <div
+          style={{
+            fontFamily: poll.styles.questionFontFamily,
+            fontWeight: poll.styles?.questionFontVariant,
+            fontSize: poll.styles.questionFontSize,
+            fontStyle: poll.styles.questionFontStyle,
+          }}
+        >
+          {poll.basics.question}
+        </div>
         {renderProper()}
       </div>
     </>

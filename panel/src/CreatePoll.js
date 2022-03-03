@@ -40,7 +40,12 @@ const CreatePoll = (children) => {
 
   const [poll, setPoll] = useState({
     basics: {},
-    styles: {},
+    styles: {
+      questionFontFamily: "Work Sans",
+      questionFontVariant: "regular",
+      questionFontSize: 18,
+      questionFontStyle: "normal"
+    },
     structure: "simple",
     showVotes: true,
   });
@@ -82,18 +87,7 @@ const CreatePoll = (children) => {
         </Col>
         <Col md={4}>
           <div style={{ margin: 10 }}>
-            <PollWidget
-              poll={{
-                basics: {
-                  variant: "t",
-                  question:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                },
-                style: {
-                  question: {},
-                },
-              }}
-            />
+            <PollWidget poll={poll} />
           </div>
         </Col>
       </Row>
