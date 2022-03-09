@@ -1,9 +1,11 @@
+const getAuthorizationUrl = require('./getAuthorizationUrl')
+
 const resolvers = {
   Query: {
   },
 
   Mutation: {
-    authorize: () => "qweqwew",
+    authorize: () => getAuthorizationUrl(),
   },
 };
 
