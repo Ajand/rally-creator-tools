@@ -1,12 +1,13 @@
 const { ApolloServer, gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
+
   type Query {
-    books: [Book]
+    a: String!
+  }
+  
+  type Mutation {
+    authorize: String!
   }
 `;
 

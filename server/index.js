@@ -4,34 +4,14 @@ const express = require("express");
 const http = require("http");
 const getRegiseterToken = require("./src/getRegisterToken");
 const { port } = require("./config");
-const typeDefs = require('./typeDefs')
+const typeDefs = require("./src/typeDefs");
+const resolvers = require("./src/resolvers");
 
-getRegiseterToken()
-  .then((rt) => console.log(rt))
-  .catch((err) => console.log(err));
-
-
+//wgetRegiseterToken()
+//  .then((rt) => console.log(rt))
+//  .catch((err) => console.log(err));
 
 const app = express();
-
-
-
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-};
 
 //require('./oauth')
 
