@@ -6,19 +6,45 @@ const useStyles = createUseStyles({
     border: `3px solid black`,
     padding: "1em",
     borderRadius: 10,
-    background: "white",
+    background: "#FEC84B",
     boxShadow: "8px 8px black",
     marginBottom: "2em",
+  },
+  optionsContainer: {
+    marginTop: "1em",
+  },
+  optionContainer: {
+    padding: "8px",
+    border: "2px solid black",
+    marginBottom: "1em",
+    borderRadius: "8px",
+    boxShadow: "3px 3px black",
+    cursor: "pointer",
   },
 });
 
 const PollWidget = ({ poll }) => {
   const classes = useStyles();
 
+  const textOptions = () => {
+    return (
+      <div className={classes.optionsContainer}>
+        {poll.basics.options.map((op, i) => (
+          <div
+            style={{ background: i == 0 ? "#17b3e2" : "white" }}
+            className={classes.optionContainer}
+          >
+            {op.body}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   const renderProper = () => {
     switch (poll.basics.variant) {
       case "t":
-        return null; //<div>Hello</div>;
+        return textOptions(); //<div>Hello</div>;
     }
   };
 

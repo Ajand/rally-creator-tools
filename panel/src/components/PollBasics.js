@@ -127,16 +127,12 @@ const PollBasics = ({ poll, setPoll }) => {
 
   const [selectedType, setSelectedType] = useState("t");
 
-  const [options, setOptions] = useState([
-    {
-      body: "qweas",
-      image:
-        "https://ipfs.io/ipfs/Qmf3N83qEuvBFCqPsT55eEe4XhAzcfbo3csJZP1pQoK3gq",
-    },
-    { body: "", image: "" },
-  ]);
-
-  console.log(options);
+  const options = poll.basics.options;
+  const setOptions = (o) =>
+    setPoll({
+      ...poll,
+      basics: { ...poll.basics, options: o },
+    });
 
   const renderTextOptionCreator = () => {
     return (

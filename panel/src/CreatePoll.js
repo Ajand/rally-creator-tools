@@ -39,12 +39,20 @@ const CreatePoll = (children) => {
   const navigate = useNavigate();
 
   const [poll, setPoll] = useState({
-    basics: {},
+    basics: {
+      question: "",
+      variant: "t",
+      options: [
+        { body: "qweasdasdqweqwe" },
+        { body: "q,masdflxmcbc vbc vbc vb wsedfqwer" },
+        { body: "q,masdflxmcbc vbc weqwe vb qweq" },
+      ],
+    },
     styles: {
       questionFontFamily: "Work Sans",
       questionFontVariant: "regular",
       questionFontSize: 18,
-      questionFontStyle: "normal"
+      questionFontStyle: "normal",
     },
     structure: "simple",
     showVotes: true,
