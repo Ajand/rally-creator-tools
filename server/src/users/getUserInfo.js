@@ -1,5 +1,5 @@
 const axios = require("axios");
-const getRegisterToken = require("./getRegisterToken");
+const getRegisterToken = require("../getRegisterToken");
 
 const getUserInfo = async (code) => {
   const data = JSON.stringify({

@@ -7,6 +7,7 @@ const { port } = require("./config");
 const typeDefs = require("./src/typeDefs");
 const resolvers = require("./src/resolvers");
 const getUserInfo = require("./src/users/getUserInfo");
+const getAccount = require("./src/users/getAccount");
 
 //wgetRegiseterToken()
 //  .then((rt) => console.log(rt))
@@ -23,7 +24,10 @@ async function startApolloServer(typeDefs, resolvers) {
   app.get("/rally-oauth", async (req, res) => {
     console.log(req.params, req.query);
     const userInfo = await getUserInfo(req.query.code);
-    res.send(userInfo);
+
+    console.log(userInfo.rnbUserId)
+    const userAccounts = await getAccount(userInfo.rnbUserId);
+    res.send(userAccounts);
   });
 
   const server = new ApolloServer({
