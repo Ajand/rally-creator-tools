@@ -17,6 +17,7 @@ import Checkbox from "./components/Checkbox";
 import PollBasics from "./components/PollBasics";
 
 import Router from "./router";
+import client from "./apolloClient";
 
 const App = ({ label }) => {
   const [value, setValue] = useState(0);
@@ -24,12 +25,6 @@ const App = ({ label }) => {
   const [question, setQuestion] = useState("");
 
   const [isChecked, setIsChecked] = useState(false);
-
-
-  const client = new ApolloClient({
-    uri: process.env.REACT_APP_GRAPHQL,
-    cache: new InMemoryCache(),
-  });
 
   return (
     <ApolloProvider client={client}>

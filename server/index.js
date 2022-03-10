@@ -3,13 +3,14 @@ const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const express = require("express");
 const http = require("http");
 const getRegiseterToken = require("./src/getRegisterToken");
-const { port, dbString } = require("./config");
+const { port, dbString, clientUrl, jwtSecret } = require("./config");
 const typeDefs = require("./src/typeDefs");
 const resolvers = require("./src/resolvers");
 const getUserInfo = require("./src/users/getUserInfo");
 const getAccount = require("./src/users/getAccount");
 const mongoose = require("mongoose");
-var cors = require('cors')
+var cors = require("cors");
+const jwt = require("jsonwebtoken");
 
 const User = require("./src/models/User");
 
@@ -25,7 +26,7 @@ const app = express();
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
-  app.use(cors())
+  app.use(cors());
 
   const httpServer = http.createServer(app);
 
@@ -39,9 +40,15 @@ async function startApolloServer(typeDefs, resolvers) {
     const user = await User.methods.queries.get(userAccounts[0].id);
 
     if (user) {
-      res.send(user);
+      const token = jwt.sign({ id: user.id }, jwtSecret);
+
+      res.redirect(`${clientUrl}/oauth/${token}`);
     } else {
-      res.send(await User.methods.commands.create(userAccounts[0]));
+      const usr = User.methods.commands.create(userAccounts[0]);
+
+      const token = jwt.sign({ id: usr.id }, jwtSecret);
+
+      res.redirect(`${clientUrl}/oauth/${token}`);
     }
   });
 
