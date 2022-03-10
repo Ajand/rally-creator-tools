@@ -1,4 +1,4 @@
-const getAuthorizationUrl = require('./getAuthorizationUrl')
+const getAuthorizationUrl = require('./users/getAuthorizationUrl')
 
 const resolvers = {
   Query: {

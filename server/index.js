@@ -6,7 +6,7 @@ const getRegiseterToken = require("./src/getRegisterToken");
 const { port } = require("./config");
 const typeDefs = require("./src/typeDefs");
 const resolvers = require("./src/resolvers");
-const getUserInfo = require("./src/getUserInfo");
+const getUserInfo = require("./src/users/getUserInfo");
 
 //wgetRegiseterToken()
 //  .then((rt) => console.log(rt))

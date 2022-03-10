@@ -1,6 +1,6 @@
 const axios = require("axios");
-const getRegisterToken = require("./getRegisterToken");
-const { callback_url } = require("../config");
+const getRegisterToken = require("../getRegisterToken");
+const { callback_url } = require("../../config");
 
 const getAuthorizationUrl = async () => {
   const registerToken = await getRegisterToken();
