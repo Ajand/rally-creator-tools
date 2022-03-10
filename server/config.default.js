@@ -1,5 +1,7 @@
 module.exports = {
-    username: "",
-    password: "",
-    callback_url: "",
-}
+  username: "",
+  password: "",
+  callback_url: "",
+  dbString: "",
+  port: 4000,
+};

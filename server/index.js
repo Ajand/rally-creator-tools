@@ -3,11 +3,16 @@ const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const express = require("express");
 const http = require("http");
 const getRegiseterToken = require("./src/getRegisterToken");
-const { port } = require("./config");
+const { port, dbString } = require("./config");
 const typeDefs = require("./src/typeDefs");
 const resolvers = require("./src/resolvers");
 const getUserInfo = require("./src/users/getUserInfo");
 const getAccount = require("./src/users/getAccount");
+const mongoose = require("mongoose");
+
+const User = require("./src/models/User");
+
+mongoose.connect(dbString);
 
 //wgetRegiseterToken()
 //  .then((rt) => console.log(rt))
@@ -25,9 +30,16 @@ async function startApolloServer(typeDefs, resolvers) {
     console.log(req.params, req.query);
     const userInfo = await getUserInfo(req.query.code);
 
-    console.log(userInfo.rnbUserId)
+    console.log(userInfo.rnbUserId);
     const userAccounts = await getAccount(userInfo.rnbUserId);
-    res.send(userAccounts);
+
+    const user = await User.methods.queries.get(userAccounts[0].id);
+
+    if (user) {
+      res.send(user);
+    } else {
+      res.send(await User.methods.commands.create(userAccounts[0]));
+    }
   });
 
   const server = new ApolloServer({
