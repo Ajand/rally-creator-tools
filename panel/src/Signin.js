@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
 import { useNavigate } from "react-router-dom";
+import { useMutation, gql } from "@apollo/client";
 
 const useStyles = createUseStyles({
   root: {
@@ -31,13 +32,32 @@ const useStyles = createUseStyles({
   },
 });
 
+const AUTHORIZE = gql`
+  mutation Mutation {
+    authorize
+  }
+`;
+
 const Signin = (children) => {
   const classes = useStyles();
   let navigate = useNavigate();
 
+  const [authorize] = useMutation(AUTHORIZE);
+
+  //onClick={() => navigate("polls-manager")}
   return (
     <div className={classes.root}>
-      <div onClick={() => navigate("polls-manager")} className={classes.button}>
+      <div
+        onClick={() => {
+          authorize()
+            .then((r) => {
+              localStorage.setItem('before-oauth-redirect', window.location.href)
+              window.location.replace(r.data.authorize);
+            })
+            .catch((err) => console.log(err));
+        }}
+        className={classes.button}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="50"

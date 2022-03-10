@@ -9,6 +9,7 @@ const resolvers = require("./src/resolvers");
 const getUserInfo = require("./src/users/getUserInfo");
 const getAccount = require("./src/users/getAccount");
 const mongoose = require("mongoose");
+var cors = require('cors')
 
 const User = require("./src/models/User");
 
@@ -24,6 +25,8 @@ const app = express();
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
+  app.use(cors())
+
   const httpServer = http.createServer(app);
 
   app.get("/rally-oauth", async (req, res) => {

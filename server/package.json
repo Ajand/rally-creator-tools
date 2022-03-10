@@ -16,6 +16,7 @@
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.6.3",
     "axios": "^0.26.1",
+    "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "graphql": "^16.3.0",

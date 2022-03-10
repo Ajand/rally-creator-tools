@@ -1,5 +1,12 @@
 import { useState } from "react";
 import "./App.css";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from "@apollo/client";
 
 import { Row, Col, Container } from "react-grid-system";
 
@@ -18,10 +25,18 @@ const App = ({ label }) => {
 
   const [isChecked, setIsChecked] = useState(false);
 
+
+  const client = new ApolloClient({
+    uri: process.env.REACT_APP_GRAPHQL,
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div>
-      <Router />
-    </div>
+    <ApolloProvider client={client}>
+      <div>
+        <Router />
+      </div>
+    </ApolloProvider>
   );
 
   return (
