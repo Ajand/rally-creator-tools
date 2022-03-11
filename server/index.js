@@ -55,6 +55,19 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: async ({ req }) => {
+      const token = req.headers.authorization || "";
+      if (token) {
+        try {
+          const decode = jwt.verify(token, jwtSecret);
+          const user = await User.methods.queries.get(decode.id);
+          return { user };
+        } catch (err) {
+          return {};
+        }
+      }
+      return {};
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
