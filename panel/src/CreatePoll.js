@@ -65,7 +65,7 @@ const CreatePoll = (children) => {
           <div className={classes.actions}>
             <div
               className={classes.button}
-              onClick={() => navigate(`/polls-manager`)}
+              onClick={() => navigate(`/`)}
             >
               Back
             </div>
