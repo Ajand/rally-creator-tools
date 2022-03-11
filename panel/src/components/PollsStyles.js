@@ -4,6 +4,7 @@ import Select from "react-select";
 import googleFonts from "../googleFonts";
 import { useState, useEffect } from "react";
 import { Row, Col } from "react-grid-system";
+import TextField from "./TextField";
 
 const useStyles = createUseStyles({
   root: {
@@ -88,6 +89,10 @@ const PollStructure = ({ poll, setPoll }) => {
     questionFontVariant,
     questionFontSize,
     questionFontStyle,
+    backgroundColor,
+    optionBackgroundColor,
+    questionColor,
+    optionTextColor,
   } = poll.styles;
   const setQuestionFontFamily = (e) =>
     setPoll({ ...poll, styles: { ...poll.styles, questionFontFamily: e } });
@@ -100,6 +105,18 @@ const PollStructure = ({ poll, setPoll }) => {
 
   const setQuestionFontStyle = (e) =>
     setPoll({ ...poll, styles: { ...poll.styles, questionFontStyle: e } });
+
+  const setBackgroundColor = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, backgroundColor: e } });
+
+  const setOptionBackgroundColor = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionBackgroundColor: e } });
+
+  const setQuestionColor = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, questionColor: e } });
+
+  const setOptionTextColor = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionTextColor: e } });
 
   return (
     <div className={classes.root}>
@@ -195,6 +212,62 @@ const PollStructure = ({ poll, setPoll }) => {
                 styles={customStyles}
               />
             </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Background Color:</p>
+            </div>
+
+            <input
+              type="color"
+              value={backgroundColor}
+              onChange={(e) => setBackgroundColor(e.target.value)}
+            ></input>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option BG Color:</p>
+            </div>
+
+            <input
+              type="color"
+              value={optionBackgroundColor}
+              onChange={(e) => setOptionBackgroundColor(e.target.value)}
+            ></input>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Question Text Color:</p>
+            </div>
+
+            <input
+              type="color"
+              value={questionColor}
+              onChange={(e) => setQuestionColor(e.target.value)}
+            ></input>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option Text Color:</p>
+            </div>
+
+            <input
+              type="color"
+              value={optionTextColor}
+              onChange={(e) => setOptionTextColor(e.target.value)}
+            ></input>
           </div>
         </Col>
       </Row>

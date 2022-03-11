@@ -35,13 +35,13 @@ const useStyles = createUseStyles({
 
 const CreatePoll = (children) => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(2);
   const navigate = useNavigate();
 
   const [poll, setPoll] = useState({
     basics: {
-      question: "",
-      variant: "i",
+      question: "qweqwweqweqweqwwe",
+      variant: "t",
       options: [
         { body: "qweasdasdqweqwe" },
         { body: "q,masdflxmcbc vbc vbc vb wsedfqwer" },
@@ -53,12 +53,14 @@ const CreatePoll = (children) => {
       questionFontVariant: "regular",
       questionFontSize: 18,
       questionFontStyle: "normal",
+      backgroundColor: "#FEC84B",
+      optionBackgroundColor: "#FFFFFF",
+      questionColor: "#000000",
+      optionTextColor: "#000000",
     },
     structure: "simple",
     showVotes: true,
   });
-
-
 
   return (
     <Container>

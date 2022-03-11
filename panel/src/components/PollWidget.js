@@ -7,7 +7,6 @@ const useStyles = createUseStyles({
     border: `3px solid black`,
     padding: "1em",
     borderRadius: 10,
-    background: "#FEC84B",
     boxShadow: "8px 8px black",
     marginBottom: "2em",
   },
@@ -27,7 +26,7 @@ const useStyles = createUseStyles({
     borderRadius: 10,
     border: "3px solid black",
     boxShadow: "3px 3px black",
-    marginBottom: '0.5em'
+    marginBottom: "0.5em",
     //padding: '1em',
   },
 
@@ -69,7 +68,10 @@ const PollWidget = ({ poll }) => {
       <div className={classes.optionsContainer}>
         {poll.basics.options.map((op, i) => (
           <div
-            style={{ background: i == 0 ? "#17b3e2" : "white" }}
+            style={{
+              background: poll.styles.optionBackgroundColor,
+              color: poll.styles.optionTextColor,
+            }}
             className={classes.optionContainer}
           >
             {op.body}
@@ -82,12 +84,15 @@ const PollWidget = ({ poll }) => {
   const imageOptions = () => {
     return (
       <div className={classes.imageOptionsContainer}>
-        {poll.basics.options.map((op, i) => (
-          <img
-            className={classes.img}
-            src={`https://ipfs.io/ipfs/${op.hash}`}
-          />
-        ))}
+        {poll.basics.options
+          .filter((op) => op.hash)
+          .map((op, i) => (
+            <img
+              className={classes.img}
+              src={`https://ipfs.io/ipfs/${op.hash}`}
+              key={i}
+            />
+          ))}
       </div>
     );
   };
@@ -95,18 +100,21 @@ const PollWidget = ({ poll }) => {
   const textImageOptions = () => {
     return (
       <div className={classes.optionsContainer}>
-        {poll.basics.options.map((op, i) => (
-          <div
-            style={{ background: i == 0 ? "#17b3e2" : "white" }}
-            className={classes.optionImageContainer}
-          >
-            <img
-              className={classes.imgWithText}
-              src={`https://ipfs.io/ipfs/${op.hash}`}
-            />
-            <div className={classes.optionImageText}>{op.body}</div>
-          </div>
-        ))}
+        {poll.basics.options
+          .filter((op) => op.hash)
+          .map((op, i) => (
+            <div
+              style={{ background: i == 0 ? "#17b3e2" : "white" }}
+              className={classes.optionImageContainer}
+              key={i}
+            >
+              <img
+                className={classes.imgWithText}
+                src={`https://ipfs.io/ipfs/${op.hash}`}
+              />
+              <div className={classes.optionImageText}>{op.body}</div>
+            </div>
+          ))}
       </div>
     );
   };
@@ -124,16 +132,6 @@ const PollWidget = ({ poll }) => {
 
   const fontsSet = new Set([poll.styles.questionFontFamily]);
 
-  console.log(
-    [...fontsSet].map((font) => {
-      console.log(font);
-      return {
-        font,
-        //  weights: [poll.styles?.questionFontVariant],
-      };
-    })
-  );
-
   return (
     <>
       <GoogleFontLoader
@@ -142,13 +140,17 @@ const PollWidget = ({ poll }) => {
           weights: [poll.questionFontVariant],
         }))}
       />
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        style={{ backgroundColor: poll.styles.backgroundColor }}
+      >
         <div
           style={{
             fontFamily: poll.styles.questionFontFamily,
             fontWeight: poll.styles?.questionFontVariant,
             fontSize: poll.styles.questionFontSize,
             fontStyle: poll.styles.questionFontStyle,
+            color: poll.styles.questionColor,
           }}
         >
           {poll.basics.question}
