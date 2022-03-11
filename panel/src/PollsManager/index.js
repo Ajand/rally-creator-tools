@@ -26,6 +26,24 @@ const useStyles = createUseStyles({
       background: "#e5b444",
     },
   },
+  secondaryBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#5D38CE",
+    color: 'white',
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "200ms",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+    marginRight: '1em',
+    "&:hover": {
+      background: "#422bbf",
+    },
+  },
   tableRoot: {
     background: "white",
     border: "3px solid black",
@@ -113,6 +131,12 @@ const Panel = (children) => {
           onClick={() => navigate(`/create-poll`)}
         >
           Create A New Poll
+        </div>
+        <div
+          className={classes.secondaryBtn}
+          onClick={() => navigate(`/create-poll`)}
+        >
+          Create A New Event
         </div>
       </div>
       <div className={classes.container}>

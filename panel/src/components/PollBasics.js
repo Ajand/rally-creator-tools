@@ -1,6 +1,7 @@
 import { createUseStyles } from "react-jss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadFile, upload } from "../ipfsUploader";
 
 import { Row, Col } from "react-grid-system";
 
@@ -52,6 +53,7 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     marginBottom: "1em",
+    marginTop: "0.5em",
   },
   optionFormHolder: {
     width: "100%",
@@ -93,7 +95,7 @@ const useStyles = createUseStyles({
     marginLeft: "1em",
   },
   progress: {
-    fontSize: "1.8em",
+    fontSize: "1.1em",
     fontWeight: "bold",
   },
   imageOptionCreatorBodyFooter: {
@@ -115,6 +117,18 @@ const useStyles = createUseStyles({
       background: "#b02769",
     },
   },
+  discardBtnDisabled: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    marginLeft: "1em",
+    borderRadius: 10,
+    background: "#c8c8c8",
+    color: "#333",
+    cursor: "not-allowed",
+    color: "white",
+    fontWeight: "bold",
+    transition: "200ms",
+  },
 });
 
 const PollBasics = ({ poll, setPoll }) => {
@@ -125,7 +139,9 @@ const PollBasics = ({ poll, setPoll }) => {
   const setPollQuestion = (q) =>
     setPoll({ ...poll, basics: { ...poll.basics, question: q } });
 
-  const [selectedType, setSelectedType] = useState("t");
+  const selectedType = poll.basics.variant;
+  const setSelectedType = (v) =>
+    setPoll({ ...poll, basics: { ...poll.basics, variant: v } });
 
   const options = poll.basics.options;
   const setOptions = (o) =>
@@ -191,16 +207,97 @@ const PollBasics = ({ poll, setPoll }) => {
               >
                 <DeleteIcon disabled={options.length < 3} />
               </div>
-              {option.image ? (
+              {option.uploading ? (
                 <div className={classes.imageOptionCreatorBody}>
-                  <img className={classes.img} src={option.image} />
+                  <img
+                    className={classes.img}
+                    src={URL.createObjectURL(option.imageFile)}
+                  />
                   <div className={classes.imageOptionCreatorBodyFooter}>
-                    <div className={classes.progress}>85%</div>
-                    <div className={classes.discardBtn}>Discard</div>
+                    <div className={classes.progress}>Uploading</div>
+                    <div className={classes.discardBtnDisabled}>Discard</div>
+                  </div>
+                </div>
+              ) : option.hash ? (
+                <div className={classes.imageOptionCreatorBody}>
+                  <img
+                    className={classes.img}
+                    src={`https://ipfs.io/ipfs/${option.hash}`}
+                  />
+                  <div className={classes.imageOptionCreatorBodyFooter}>
+                    <div className={classes.progress}></div>
+                    <div
+                      onClick={() => {
+                        setOptions(
+                          options.map((op, i) => {
+                            if (i !== index) return op;
+                            return {
+                              ...op,
+                              imageFile: null,
+                              uploading: false,
+                              hash: "",
+                            };
+                          })
+                        );
+                      }}
+                      className={classes.discardBtn}
+                    >
+                      Discard
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className={classes.addBtn}>Add A Photo</div>
+                <div>
+                  <label for={`image::${index}`} className={classes.addBtn}>
+                    Add A Photo
+                  </label>
+
+                  <input
+                    multiple={false}
+                    accept="image/png, image/jpeg"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+
+                      setOptions(
+                        options.map((op, i) => {
+                          if (i !== index) return op;
+                          return { ...op, imageFile: file, uploading: true };
+                        })
+                      );
+
+                      uploadFile(file)
+                        .then((r) => {
+                          setOptions(
+                            options.map((op, i) => {
+                              if (i !== index) return op;
+                              return {
+                                ...op,
+                                hash: r.value.cid,
+                                imageFile: file,
+                                uploading: false,
+                              };
+                            })
+                          );
+                        })
+                        .catch((err) => {
+                          setOptions(
+                            options.map((op, i) => {
+                              if (i !== index) return op;
+                              return {
+                                ...op,
+                                imageFile: null,
+                                uploading: false,
+                              };
+                            })
+                          );
+                        });
+                    }}
+                    style={{ display: "none" }}
+                    name={`image::${index}`}
+                    id={`image::${index}`}
+                    type="file"
+                  />
+                </div>
               )}
             </div>
           </Col>
@@ -244,16 +341,97 @@ const PollBasics = ({ poll, setPoll }) => {
               </div>
             </div>
             <div className={classes.imageOptionContainer}>
-              {option.image ? (
+              {option.uploading ? (
                 <div className={classes.imageOptionCreatorBody}>
-                  <img className={classes.img} src={option.image} />
+                  <img
+                    className={classes.img}
+                    src={URL.createObjectURL(option.imageFile)}
+                  />
                   <div className={classes.imageOptionCreatorBodyFooter}>
-                    <div className={classes.progress}>85%</div>
-                    <div className={classes.discardBtn}>Discard</div>
+                    <div className={classes.progress}>Uploading</div>
+                    <div className={classes.discardBtnDisabled}>Discard</div>
+                  </div>
+                </div>
+              ) : option.hash ? (
+                <div className={classes.imageOptionCreatorBody}>
+                  <img
+                    className={classes.img}
+                    src={`https://ipfs.io/ipfs/${option.hash}`}
+                  />
+                  <div className={classes.imageOptionCreatorBodyFooter}>
+                    <div className={classes.progress}></div>
+                    <div
+                      onClick={() => {
+                        setOptions(
+                          options.map((op, i) => {
+                            if (i !== index) return op;
+                            return {
+                              ...op,
+                              imageFile: null,
+                              uploading: false,
+                              hash: "",
+                            };
+                          })
+                        );
+                      }}
+                      className={classes.discardBtn}
+                    >
+                      Discard
+                    </div>
                   </div>
                 </div>
               ) : (
-                <div className={classes.addBtn}>Add A Photo</div>
+                <div>
+                  <label for={`image::${index}`} className={classes.addBtn}>
+                    Add A Photo
+                  </label>
+
+                  <input
+                    multiple={false}
+                    accept="image/png, image/jpeg"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+
+                      setOptions(
+                        options.map((op, i) => {
+                          if (i !== index) return op;
+                          return { ...op, imageFile: file, uploading: true };
+                        })
+                      );
+
+                      uploadFile(file)
+                        .then((r) => {
+                          setOptions(
+                            options.map((op, i) => {
+                              if (i !== index) return op;
+                              return {
+                                ...op,
+                                hash: r.value.cid,
+                                imageFile: file,
+                                uploading: false,
+                              };
+                            })
+                          );
+                        })
+                        .catch((err) => {
+                          setOptions(
+                            options.map((op, i) => {
+                              if (i !== index) return op;
+                              return {
+                                ...op,
+                                imageFile: null,
+                                uploading: false,
+                              };
+                            })
+                          );
+                        });
+                    }}
+                    style={{ display: "none" }}
+                    name={`image::${index}`}
+                    id={`image::${index}`}
+                    type="file"
+                  />
+                </div>
               )}
             </div>
           </Col>

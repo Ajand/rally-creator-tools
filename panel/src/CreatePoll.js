@@ -41,7 +41,7 @@ const CreatePoll = (children) => {
   const [poll, setPoll] = useState({
     basics: {
       question: "",
-      variant: "t",
+      variant: "i",
       options: [
         { body: "qweasdasdqweqwe" },
         { body: "q,masdflxmcbc vbc vbc vb wsedfqwer" },
@@ -58,15 +58,14 @@ const CreatePoll = (children) => {
     showVotes: true,
   });
 
+
+
   return (
     <Container>
       <Row>
         <Col md={12}>
           <div className={classes.actions}>
-            <div
-              className={classes.button}
-              onClick={() => navigate(`/`)}
-            >
+            <div className={classes.button} onClick={() => navigate(`/`)}>
               Back
             </div>
           </div>
