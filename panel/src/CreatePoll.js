@@ -35,7 +35,7 @@ const useStyles = createUseStyles({
 
 const CreatePoll = (children) => {
   const classes = useStyles();
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState(1);
   const navigate = useNavigate();
 
   const [poll, setPoll] = useState({
@@ -59,6 +59,7 @@ const CreatePoll = (children) => {
       optionTextColor: "#000000",
     },
     structure: "simple",
+    token: ''
     showVotes: true,
   });
 

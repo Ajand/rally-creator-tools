@@ -1,5 +1,8 @@
 import { createUseStyles } from "react-jss";
 import Checkbox from "./Checkbox";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 
 const useStyles = createUseStyles({
   root: {
@@ -34,8 +37,69 @@ const useStyles = createUseStyles({
   },
 });
 
+const customStyles = {
+  menu: (provided, state) => ({
+    ...provided,
+    border: "3px solid black",
+    borderRadius: "8px",
+    boxShadow: "4px 4px black",
+  }),
+
+  control: (provided) => ({
+    ...provided,
+    border: "3px solid black",
+    borderRadius: "8px",
+    boxShadow: "4px 4px black",
+    transition: "200ms",
+    color: "black",
+    "&:hover": {
+      border: "3px solid #FC695C",
+    },
+  }),
+
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: "black",
+    "&:hover": {
+      color: "#FC695C",
+    },
+  }),
+
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    backgroundColor: "black",
+    "&:hover": {
+      backgroundColor: "#FC695C",
+    },
+  }),
+};
+
 const PollStructure = ({ poll, setPoll }) => {
   const classes = useStyles();
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    var config = {
+      method: "get",
+      url: process.env.REACT_APP_CREATOR_COIN,
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setOptions(
+          response.data.map((token) => ({
+            label: token.symbol,
+            value: token.symbol,
+          }))
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(options);
 
   const selectedType = poll.structure;
   const setSelectedType = (t) => setPoll({ ...poll, structure: t });
@@ -43,9 +107,24 @@ const PollStructure = ({ poll, setPoll }) => {
   const showVotes = poll.showVotes;
   const setShowVotes = (t) => setPoll({ ...poll, showVotes: t });
 
+  const setSelectedToken = (e) => setPoll({ ...poll, token: e });
+
   return (
     <div className={classes.root}>
       <div className={classes.section}>
+        <div className={classes.section}>
+          <div className={classes.titleRow}>
+            <p className={classes.title}>Selected Coin:</p>
+          </div>
+          <div>
+            <Select
+              onChange={(e) => setSelectedToken(e.value)}
+              autoComplete
+              options={options}
+              styles={customStyles}
+            />
+          </div>
+        </div>
         <div className={classes.titleRow}>
           <p className={classes.title}>Option Type:</p>
         </div>

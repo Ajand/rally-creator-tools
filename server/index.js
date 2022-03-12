@@ -12,6 +12,24 @@ const mongoose = require("mongoose");
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
 
+const {
+  getAllCreatorCoins,
+  creatorCoins,
+} = require("./src/getAllCreatorCoins");
+
+getAllCreatorCoins()
+  .then((r) => console.log(r))
+  .catch((err) => {
+    console.log(err);
+  });
+/*setInterval(() => {
+  getAllCreatorCoins()
+    .then((r) => console.log(r))
+    .catch((err) => {
+      console.log(err);
+    });
+}, 60 * 1000);*/
+
 const User = require("./src/models/User");
 
 mongoose.connect(dbString);
@@ -29,6 +47,14 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use(cors());
 
   const httpServer = http.createServer(app);
+
+  app.get("/creator-coins", (req, res) => {
+    getAllCreatorCoins()
+      .then((r) => res.send(r))
+      .catch((err) => {
+        res.next(err);
+      });
+  });
 
   app.get("/rally-oauth", async (req, res) => {
     console.log(req.params, req.query);
