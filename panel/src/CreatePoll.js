@@ -31,6 +31,52 @@ const useStyles = createUseStyles({
       background: "#e5b444",
     },
   },
+  createBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#FC695C",
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "200ms",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+    "&:hover": {
+      background: "#E7564A",
+    },
+    color: "black",
+    textAlign: "center",
+  },
+  dCreateBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#FC695C",
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "200ms",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+    "&:hover": {
+      background: "#E7564A",
+    },
+    color: "black",
+    textAlign: "center",
+  },
+  dCreateBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#c8c8c8",
+    cursor: "not-allowed",
+    fontWeight: "bold",
+    transition: "200ms",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+
+    color: "black",
+    textAlign: "center",
+  },
 });
 
 const CreatePoll = (children) => {
@@ -40,13 +86,9 @@ const CreatePoll = (children) => {
 
   const [poll, setPoll] = useState({
     basics: {
-      question: "qweqwweqweqweqwwe",
+      question: "",
       variant: "t",
-      options: [
-        { body: "qweasdasdqweqwe" },
-        { body: "q,masdflxmcbc vbc vbc vb wsedfqwer" },
-        { body: "q,masdflxmcbc vbc weqwe vb qweq" },
-      ],
+      options: [{ body: "" }, { body: "" }, { body: "" }],
     },
     styles: {
       questionFontFamily: "Work Sans",
@@ -102,6 +144,12 @@ const CreatePoll = (children) => {
         <Col md={4}>
           <div style={{ margin: 10 }}>
             <PollWidget poll={poll} />
+          </div>
+          <div
+            style={{ margin: 10 }}
+            className={true ? classes.dCreateBtn : classes.createBtn}
+          >
+            Create Poll
           </div>
         </Col>
       </Row>
