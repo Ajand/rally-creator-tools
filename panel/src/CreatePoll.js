@@ -57,9 +57,13 @@ const CreatePoll = (children) => {
       optionBackgroundColor: "#FFFFFF",
       questionColor: "#000000",
       optionTextColor: "#000000",
+      optionFontFamily: "Work Sans",
+      optionFontVariant: "regular",
+      optionFontSize: 16,
+      optionFontStyle: "normal",
     },
     structure: "simple",
-    token: ''
+    token: "",
     showVotes: true,
   });
 

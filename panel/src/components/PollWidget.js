@@ -71,6 +71,10 @@ const PollWidget = ({ poll }) => {
             style={{
               background: poll.styles.optionBackgroundColor,
               color: poll.styles.optionTextColor,
+              fontFamily: poll.styles.optionFontFamily,
+              fontWeight: poll.styles?.optionFontVariant,
+              fontSize: poll.styles.optionFontSize,
+              fontStyle: poll.styles.optionFontStyle,
             }}
             className={classes.optionContainer}
           >
@@ -112,7 +116,19 @@ const PollWidget = ({ poll }) => {
                 className={classes.imgWithText}
                 src={`https://ipfs.io/ipfs/${op.hash}`}
               />
-              <div className={classes.optionImageText}>{op.body}</div>
+              <div
+                className={classes.optionImageText}
+                style={{
+                  background: poll.styles.optionBackgroundColor,
+                  color: poll.styles.optionTextColor,
+                  fontFamily: poll.styles.optionFontFamily,
+                  fontWeight: poll.styles?.optionFontVariant,
+                  fontSize: poll.styles.optionFontSize,
+                  fontStyle: poll.styles.optionFontStyle,
+                }}
+              >
+                {op.body}
+              </div>
             </div>
           ))}
       </div>
@@ -130,7 +146,18 @@ const PollWidget = ({ poll }) => {
     }
   };
 
-  const fontsSet = new Set([poll.styles.questionFontFamily]);
+  const fontsSet = new Set([
+    poll.styles.questionFontFamily,
+    poll.styles.optionFontFamily,
+  ]);
+
+  console.log(
+    poll.styles.questionFontVariant,
+    [...fontsSet].map((font) => ({
+      font,
+      weights: [poll.styles.questionFontVariant, poll.styles.optionFontVariant],
+    }))
+  );
 
   return (
     <>

@@ -93,11 +93,16 @@ const PollStructure = ({ poll, setPoll }) => {
     optionBackgroundColor,
     questionColor,
     optionTextColor,
+    optionFontFamily,
+    optionFontVariant,
+    optionFontSize,
+    optionFontStyle,
   } = poll.styles;
+
   const setQuestionFontFamily = (e) =>
     setPoll({ ...poll, styles: { ...poll.styles, questionFontFamily: e } });
 
-  const setQuestionFonVariant = (e) =>
+  const setQuestionFontVariant = (e) =>
     setPoll({ ...poll, styles: { ...poll.styles, questionFontVariant: e } });
 
   const setQuestionFontSize = (e) =>
@@ -117,6 +122,18 @@ const PollStructure = ({ poll, setPoll }) => {
 
   const setOptionTextColor = (e) =>
     setPoll({ ...poll, styles: { ...poll.styles, optionTextColor: e } });
+
+  const setOptionsFontFamily = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionFontFamily: e } });
+
+  const setOptionsFontVariant = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionFontVariant: e } });
+
+  const setOptionsFontSize = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionFontSize: e } });
+
+  const setOptionsFontStyle = (e) =>
+    setPoll({ ...poll, styles: { ...poll.styles, optionFontStyle: e } });
 
   return (
     <div className={classes.root}>
@@ -163,7 +180,7 @@ const PollStructure = ({ poll, setPoll }) => {
                         }))
                     : []
                 }
-                onChange={(e) => setQuestionFonVariant(e.value)}
+                onChange={(e) => setQuestionFontVariant(e.value)}
                 styles={customStyles}
               />
             </div>
@@ -268,6 +285,101 @@ const PollStructure = ({ poll, setPoll }) => {
               value={optionTextColor}
               onChange={(e) => setOptionTextColor(e.target.value)}
             ></input>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option Font Family:</p>
+            </div>
+            <div>
+              <Select
+                onChange={(e) => setOptionsFontFamily(e.value)}
+                autoComplete
+                options={fontOptions}
+                styles={customStyles}
+                defaultValue={{
+                  label: optionFontFamily,
+                  value: optionFontFamily,
+                }}
+              />
+            </div>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option Font Weight:</p>
+            </div>
+            <div>
+              <Select
+                isDisabled={!questionFontFamily}
+                autoComplete
+                defaultValue={{
+                  label: optionFontVariant,
+                  value: optionFontVariant,
+                }}
+                options={
+                  questionFontFamily
+                    ? googleFonts.items
+                        .find((item) => item.family === questionFontFamily)
+                        .variants.map((variant) => ({
+                          value: variant,
+                          label: variant,
+                        }))
+                    : []
+                }
+                onChange={(e) => setOptionsFontVariant(e.value)}
+                styles={customStyles}
+              />
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option Font Size:</p>
+            </div>
+            <div>
+              <Select
+                autoComplete
+                defaultValue={{
+                  label: optionFontSize,
+                  value: optionFontSize,
+                }}
+                options={Array(99)
+                  .fill(0)
+                  .map((v, i) => ({ value: i + 1, label: i + 1 }))}
+                onChange={(e) => setOptionsFontSize(e.value)}
+                styles={customStyles}
+              />
+            </div>
+          </div>
+        </Col>
+        <Col md={6}>
+          <div className={classes.section}>
+            <div className={classes.titleRow}>
+              <p className={classes.title}>Option Font Style:</p>
+            </div>
+            <div>
+              <Select
+                autoComplete
+                defaultValue={{
+                  label: optionFontStyle,
+                  value: optionFontStyle,
+                }}
+                options={[
+                  { label: "Normal", value: "normal" },
+                  { label: "Italic", value: "italic" },
+                ]}
+                onChange={(e) => setOptionsFontStyle(e.value)}
+                styles={customStyles}
+              />
+            </div>
           </div>
         </Col>
       </Row>
