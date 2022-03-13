@@ -12,11 +12,14 @@ const typeDefs = gql`
     pollString: String
     creator: User
     active: Boolean
+    isVoted: Boolean!
+    isEligible: Boolean!
   }
 
   type Query {
     me: User
     myPolls: [Poll!]!
+    poll(_id: ID!): Poll!
   }
 
   type Mutation {

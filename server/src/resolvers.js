@@ -15,11 +15,23 @@ const resolvers = {
           r.map((a) => ({ pollString: JSON.stringify(a), ...a._doc }))
         );
     },
+
+    poll: (_, { _id }, {}) => {
+      return Poll.methods
+        .get(_id)
+        .then((r) => ({ pollString: JSON.stringify(r), ...r._doc }));
+    },
   },
 
   Poll: {
     creator: (p) => {
       return User.methods.queries.get(p.creator);
+    },
+    isVoted: (p) => {
+      return false;
+    },
+    isEligible: (p) => {
+      return true;
     },
   },
 

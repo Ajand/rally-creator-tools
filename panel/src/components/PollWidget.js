@@ -1,8 +1,24 @@
 import { createUseStyles } from "react-jss";
 import GoogleFontLoader from "react-google-font-loader";
-import { Row, Col } from "react-grid-system";
+import { Container, Row, Col } from "react-grid-system";
 
 const useStyles = createUseStyles({
+  fullRoot: {
+    height: "100vh",
+    width: "100vw",
+    boxSizing: "border-box",
+    padding: "2em",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullSizeContainer: {
+    width: "90%",
+    maxWidth: "600px",
+  },
+  errorContainer: {
+    fontSize: "1.5em",
+  },
   root: {
     border: `3px solid black`,
     padding: "1em",
@@ -60,7 +76,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const PollWidget = ({ poll }) => {
+const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
   const classes = useStyles();
 
   const textOptions = () => {
@@ -153,6 +169,63 @@ const PollWidget = ({ poll }) => {
     poll.styles.optionFontFamily,
   ]);
 
+  if (fullSize) {
+    return (
+      <>
+        <GoogleFontLoader
+          fonts={[...fontsSet].map((font) => ({
+            font,
+            weights: [poll.questionFontVariant],
+          }))}
+        />
+        <div
+          className={classes.fullRoot}
+          style={{ backgroundColor: poll.styles.backgroundColor }}
+        >
+          {!isEligible && (
+            <div
+              className={classes.errorContainer}
+              style={{
+                fontFamily: poll.styles.questionFontFamily,
+                color: poll.styles.questionColor,
+              }}
+            >
+              You are not eligible for this voting
+            </div>
+          )}
+          {isVoted &&
+            (poll.showResult ? null : (
+              <div
+                className={classes.errorContainer}
+                style={{
+                  fontFamily: poll.styles.questionFontFamily,
+                  color: poll.styles.questionColor,
+                }}
+              >
+                You already have voted for this poll
+              </div>
+            ))}
+          {!isVoted && isEligible && (
+            <div className={classes.fullSizeContainer}>
+              <div
+                style={{
+                  fontFamily: poll.styles.questionFontFamily,
+                  fontWeight: poll.styles?.questionFontVariant,
+                  fontSize: poll.styles.questionFontSize,
+                  fontStyle: poll.styles.questionFontStyle,
+                  color: poll.styles.questionColor,
+                  marginBottom: "2em",
+                }}
+              >
+                {poll.basics.question}
+              </div>
+              {renderProper()}
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -166,18 +239,20 @@ const PollWidget = ({ poll }) => {
         className={classes.root}
         style={{ backgroundColor: poll.styles.backgroundColor }}
       >
-        <div
-          style={{
-            fontFamily: poll.styles.questionFontFamily,
-            fontWeight: poll.styles?.questionFontVariant,
-            fontSize: poll.styles.questionFontSize,
-            fontStyle: poll.styles.questionFontStyle,
-            color: poll.styles.questionColor,
-          }}
-        >
-          {poll.basics.question}
-        </div>
-        {renderProper()}
+        <Container>
+          <div
+            style={{
+              fontFamily: poll.styles.questionFontFamily,
+              fontWeight: poll.styles?.questionFontVariant,
+              fontSize: poll.styles.questionFontSize,
+              fontStyle: poll.styles.questionFontStyle,
+              color: poll.styles.questionColor,
+            }}
+          >
+            {poll.basics.question}
+          </div>
+          {renderProper()}
+        </Container>
       </div>
     </>
   );
