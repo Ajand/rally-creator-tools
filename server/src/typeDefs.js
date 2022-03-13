@@ -8,8 +8,15 @@ const typeDefs = gql`
     rallyNetworkWalletIds: [String]
   }
 
+  type Poll {
+    pollString: String
+    creator: User
+    active: Boolean
+  }
+
   type Query {
     me: User
+    myPolls: [Poll!]!
   }
 
   type Mutation {

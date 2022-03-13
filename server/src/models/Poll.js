@@ -43,6 +43,10 @@ const PollSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -76,9 +80,19 @@ const get = (_id) => {
   });
 };
 
+const myPolls = (creator) => {
+  return new Promise((resolve, reject) => {
+    Poll.find({creator}, (err, poll) => {
+      if (err) return reject(err);
+      return resolve(poll);
+    });
+  });
+};
+
 const methods = {
   createPoll,
   get,
+  myPolls,
 };
 
 module.exports = {
