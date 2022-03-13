@@ -175,7 +175,6 @@ const PollBasics = ({ poll, setPoll }) => {
                   setOptions(
                     options.map((op, i) => {
                       if (i !== index) return op;
-                      console.log(e.target.value);
                       return { ...op, body: e.target.value };
                     })
                   )
@@ -331,7 +330,6 @@ const PollBasics = ({ poll, setPoll }) => {
                     setOptions(
                       options.map((op, i) => {
                         if (i !== index) return op;
-                        console.log(e.target.value);
                         return { ...op, body: e.target.value };
                       })
                     )

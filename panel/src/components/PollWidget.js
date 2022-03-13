@@ -66,21 +66,23 @@ const PollWidget = ({ poll }) => {
   const textOptions = () => {
     return (
       <div className={classes.optionsContainer}>
-        {poll.basics.options.map((op, i) => (
-          <div
-            style={{
-              background: poll.styles.optionBackgroundColor,
-              color: poll.styles.optionTextColor,
-              fontFamily: poll.styles.optionFontFamily,
-              fontWeight: poll.styles?.optionFontVariant,
-              fontSize: poll.styles.optionFontSize,
-              fontStyle: poll.styles.optionFontStyle,
-            }}
-            className={classes.optionContainer}
-          >
-            {op.body}
-          </div>
-        ))}
+        {poll.basics.options
+          .filter((op) => op.body)
+          .map((op, i) => (
+            <div
+              style={{
+                background: poll.styles.optionBackgroundColor,
+                color: poll.styles.optionTextColor,
+                fontFamily: poll.styles.optionFontFamily,
+                fontWeight: poll.styles?.optionFontVariant,
+                fontSize: poll.styles.optionFontSize,
+                fontStyle: poll.styles.optionFontStyle,
+              }}
+              className={classes.optionContainer}
+            >
+              {op.body}
+            </div>
+          ))}
       </div>
     );
   };
@@ -151,13 +153,6 @@ const PollWidget = ({ poll }) => {
     poll.styles.optionFontFamily,
   ]);
 
-  console.log(
-    poll.styles.questionFontVariant,
-    [...fontsSet].map((font) => ({
-      font,
-      weights: [poll.styles.questionFontVariant, poll.styles.optionFontVariant],
-    }))
-  );
 
   return (
     <>

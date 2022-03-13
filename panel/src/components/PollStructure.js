@@ -99,8 +99,6 @@ const PollStructure = ({ poll, setPoll }) => {
       });
   }, []);
 
-  console.log(options);
-
   const selectedType = poll.structure;
   const setSelectedType = (t) => setPoll({ ...poll, structure: t });
 
@@ -122,6 +120,10 @@ const PollStructure = ({ poll, setPoll }) => {
               autoComplete
               options={options}
               styles={customStyles}
+              defaultValue={{
+                label: poll.token,
+                value: poll.token,
+              }}
             />
           </div>
         </div>

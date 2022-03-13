@@ -1,5 +1,6 @@
 const getAuthorizationUrl = require("./users/getAuthorizationUrl");
 const User = require("./models/User");
+const Poll = require("./models/Poll");
 
 const resolvers = {
   Query: {
@@ -10,6 +11,15 @@ const resolvers = {
 
   Mutation: {
     authorize: () => getAuthorizationUrl(),
+    createPoll: async (_, { pollString }, { user }) => {
+      const pollObject = JSON.parse(pollString);
+      try {
+        await Poll.methods.createPoll({ ...pollObject }, user.id);
+        return "Done";
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
   },
 };
 

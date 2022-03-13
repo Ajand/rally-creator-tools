@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUseStyles } from "react-jss";
 import { Row, Col, Container } from "react-grid-system";
 import { useNavigate } from "react-router-dom";
+import { useMutation, gql } from "@apollo/client";
 
 import PollBasics from "./components/PollBasics";
 import CreatorTabs from "./components/CreatorTabs";
@@ -79,16 +80,24 @@ const useStyles = createUseStyles({
   },
 });
 
+const CREATE_POLL = gql`
+  mutation CreatePoll($pollString: String!) {
+    createPoll(pollString: $pollString)
+  }
+`;
+
 const CreatePoll = (children) => {
   const classes = useStyles();
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
 
+  const [createPoll] = useMutation(CREATE_POLL);
+
   const [poll, setPoll] = useState({
     basics: {
       question: "",
       variant: "t",
-      options: [{ body: "" }, { body: "" }, { body: "" }],
+      options: [{ body: "" }, { body: "" }],
     },
     styles: {
       questionFontFamily: "Work Sans",
@@ -108,6 +117,8 @@ const CreatePoll = (children) => {
     token: "",
     showVotes: true,
   });
+
+  const canCreate = poll.basics.question && poll.token;
 
   return (
     <Container>
@@ -147,7 +158,15 @@ const CreatePoll = (children) => {
           </div>
           <div
             style={{ margin: 10 }}
-            className={true ? classes.dCreateBtn : classes.createBtn}
+            className={!canCreate ? classes.dCreateBtn : classes.createBtn}
+            onClick={() => {
+              if (canCreate) {
+                const pollString = JSON.stringify(poll);
+                createPoll({ variables: { pollString } })
+                  .then((r) => console.log(r))
+                  .catch((err) => console.log(err));
+              }
+            }}
           >
             Create Poll
           </div>
