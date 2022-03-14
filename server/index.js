@@ -11,7 +11,7 @@ const getAccount = require("./src/users/getAccount");
 const mongoose = require("mongoose");
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
-const getBalances = require("./src/users/getBalances");
+const getBalance = require("./src/users/getBalance");
 
 const {
   getAllCreatorCoins,
@@ -31,7 +31,7 @@ getAllCreatorCoins()
     });
 }, 60 * 1000);*/
 
-getBalances("cc3d5aec-651e-11ec-8847-0a847b2a60cc")
+getBalance("cc3d5aec-651e-11ec-8847-0a847b2a60cc", "ADHD")
   .then((r) => console.log(r))
   .catch((err) => console.log(err));
 

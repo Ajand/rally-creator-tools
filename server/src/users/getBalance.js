@@ -1,12 +1,12 @@
 const axios = require("axios");
 const getRegisterToken = require("../getRegisterToken");
 
-const getBalances = async (rnwi) => {
+const getBalance = async (rnwi, symbol) => {
   const authToken = await getRegisterToken();
 
   const config = {
     method: "get",
-    url: `https://api.rally.io/api/rally-network-wallets/${rnwi}/balance`,
+    url: `https://api.rally.io/api/rally-network-wallets/${rnwi}/balance?symbolSearch=${symbol}`,
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
@@ -15,7 +15,11 @@ const getBalances = async (rnwi) => {
   return new Promise((resolve, reject) => {
     axios(config)
       .then(function (response) {
-        return resolve(response.data);
+        if (response.data.length) {
+          return resolve(response.data[0].amount);
+        } else {
+          return resolve(0);
+        }
       })
       .catch(function (error) {
         return reject(error);
@@ -23,4 +27,4 @@ const getBalances = async (rnwi) => {
   });
 };
 
-module.exports = getBalances;
+module.exports = getBalance;
