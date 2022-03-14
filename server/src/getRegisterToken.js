@@ -4,6 +4,8 @@ const axios = require("axios");
 let registerToken;
 let registerTokenAt;
 
+
+
 const getRegisterToken = () => {
   return new Promise((resolve, reject) => {
     if (registerTokenAt && new Date() - registerTokenAt < 30 * 60 * 1000) {

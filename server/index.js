@@ -11,6 +11,7 @@ const getAccount = require("./src/users/getAccount");
 const mongoose = require("mongoose");
 var cors = require("cors");
 const jwt = require("jsonwebtoken");
+const getBalances = require("./src/users/getBalances");
 
 const {
   getAllCreatorCoins,
@@ -18,7 +19,7 @@ const {
 } = require("./src/getAllCreatorCoins");
 
 getAllCreatorCoins()
-  .then((r) => console.log(r))
+  .then((r) => {})
   .catch((err) => {
     console.log(err);
   });
@@ -29,6 +30,10 @@ getAllCreatorCoins()
       console.log(err);
     });
 }, 60 * 1000);*/
+
+getBalances("cc3d5aec-651e-11ec-8847-0a847b2a60cc")
+  .then((r) => console.log(r))
+  .catch((err) => console.log(err));
 
 const User = require("./src/models/User");
 
@@ -57,10 +62,8 @@ async function startApolloServer(typeDefs, resolvers) {
   });
 
   app.get("/rally-oauth", async (req, res) => {
-    console.log(req.params, req.query);
     const userInfo = await getUserInfo(req.query.code);
 
-    console.log(userInfo.rnbUserId);
     const userAccounts = await getAccount(userInfo.rnbUserId);
 
     const user = await User.methods.queries.get(userAccounts[0].id);
@@ -70,7 +73,10 @@ async function startApolloServer(typeDefs, resolvers) {
 
       res.redirect(`${clientUrl}/oauth/${token}`);
     } else {
-      const usr = User.methods.commands.create(userAccounts[0]);
+      const usr = await User.methods.commands.create(
+        userAccounts[0],
+        userInfo.rnbUserId
+      );
 
       const token = jwt.sign({ id: usr.id }, jwtSecret);
 

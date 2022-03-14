@@ -15,7 +15,6 @@ const getAllCreatorCoins = (startKey, r) => {
 
   return new Promise((resolve, reject) => {
     if (registerTokenAt && new Date() - registerTokenAt < 60 * 1000) {
-      console.log("????");
       return resolve(creatorCoins);
     } else {
       if (!r) {

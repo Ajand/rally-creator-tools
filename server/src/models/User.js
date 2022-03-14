@@ -14,6 +14,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
+    rnbUserId: {
+      type: String,
+      required: true,
+    },
     rallyNetworkWalletIds: [String],
   },
   {
@@ -32,12 +40,13 @@ const get = (id) => {
   });
 };
 
-const create = ({ id, createdTimestamp, username, rallyNetworkWalletIds }) => {
+const create = ({ id, createdTimestamp, username, rallyNetworkWalletIds }, rnbUserId) => {
   const user = new User({
     id,
     createdTimestamp,
     username,
     rallyNetworkWalletIds,
+    rnbUserId
   });
 
   return user.save();
