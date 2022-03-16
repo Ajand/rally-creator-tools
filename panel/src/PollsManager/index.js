@@ -139,6 +139,7 @@ const MY_POLLS = gql`
         rallyNetworkWalletIds
       }
       active
+      votes
     }
   }
 `;
@@ -161,9 +162,9 @@ const Panel = (children) => {
   const parsedPolls = myPolls.map((pl) => ({
     ...JSON.parse(pl.pollString),
     creator: pl.creator,
+    votes: pl.votes,
   }));
 
-  console.log(parsedPolls);
 
   const renderVariant = (ty) => {
     switch (ty) {
@@ -207,7 +208,7 @@ const Panel = (children) => {
                   </div>
                 </div>
                 <div className={classes.infoRow}>
-                  <div className={classes.info}>Votes: {0}</div>
+                  <div className={classes.info}>Votes: {poll.votes}</div>
                   <div className={classes.info}>
                     Status: {poll.active ? "Active" : "In Active"}
                   </div>

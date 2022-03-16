@@ -41,6 +41,14 @@ const resolvers = {
           throw new Error(err);
         });
     },
+    votes: (p) => {
+      return Vote.methods
+        .getVotes(p._id)
+        .then((votes) => votes.length)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
   },
 
   Mutation: {
@@ -63,7 +71,7 @@ const resolvers = {
         option,
         weight: balance,
       });
-      return "Done!"
+      return "Done!";
     },
   },
 };

@@ -14,6 +14,7 @@ const typeDefs = gql`
     active: Boolean
     isVoted: Boolean!
     isEligible: Boolean!
+    votes: Int!
   }
 
   type Query {
