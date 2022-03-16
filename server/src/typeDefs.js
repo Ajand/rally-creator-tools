@@ -8,6 +8,11 @@ const typeDefs = gql`
     rallyNetworkWalletIds: [String]
   }
 
+  type VoteWeight {
+    option: Int!
+    amount: Int!
+  }
+
   type Poll {
     pollString: String
     creator: User
@@ -15,6 +20,7 @@ const typeDefs = gql`
     isVoted: Boolean!
     isEligible: Boolean!
     votes: Int!
+    voteWeights: [VoteWeight]
   }
 
   type Query {

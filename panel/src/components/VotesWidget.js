@@ -7,9 +7,9 @@ const useStyles = createUseStyles({});
 
 const VotesWidget = ({ poll }) => {
   const classes = useStyles();
-  console.log();
-
   const parsedPoll = JSON.parse(poll.pollString);
+  const total = poll.voteWeights.reduce((pV, cV) => pV + cV.amount, 0);
+
   return (
     <div
       style={{
@@ -46,7 +46,17 @@ const VotesWidget = ({ poll }) => {
               {op.body}
             </div>
             <ProgressBar
-              completed={15}
+              completed={
+                total === 0
+                  ? 0
+                  : poll.voteWeights.find((vw) => vw.option == i)
+                  ? (parseInt(
+                      poll.voteWeights.find((vw) => vw.option == i).amount
+                    ) /
+                      total) *
+                    100
+                  : 0
+              }
               bgColor={parsedPoll.styles.optionBackgroundColor}
             />
           </div>

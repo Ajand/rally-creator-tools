@@ -32,7 +32,7 @@ const ProgressBar = ({ completed, bgColor, textColor }) => {
     display: "inline-block",
     position: "absolute",
     zIndex: 10,
-    bottom: 10
+    top: '-1.5em'
   };
 
   return (

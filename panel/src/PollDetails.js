@@ -82,14 +82,13 @@ const useStyles = createUseStyles({
   },
   votesRoot: {
     border: `3px solid black`,
-   // padding: "2em 3em",
+    // padding: "2em 3em",
     borderRadius: 10,
     background: "white",
     boxShadow: "8px 8px black",
     marginBottom: "2em",
     margin: 10,
-    overflow: "hidden"
-
+    overflow: "hidden",
   },
 });
 
@@ -119,6 +118,10 @@ const POLL = gql`
       isVoted
       isEligible
       votes
+      voteWeights {
+        option
+        amount
+      }
     }
   }
 `;
@@ -135,6 +138,7 @@ const CreatePoll = () => {
   const { data, loading, error, refetch } = useQuery(POLL, {
     variables: { _id },
   });
+
 
   if (loading)
     return (

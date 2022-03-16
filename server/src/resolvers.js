@@ -3,6 +3,7 @@ const User = require("./models/User");
 const Poll = require("./models/Poll");
 const getBalance = require("./users/getBalance");
 const Vote = require("./models/Vote");
+const { quadritic, normal, weighted } = require("./controllers/resultFinder");
 
 const resolvers = {
   Query: {
@@ -48,6 +49,12 @@ const resolvers = {
         .catch((err) => {
           throw new Error(err);
         });
+    },
+
+    voteWeights: async (p) => {
+      const poll = await Poll.methods.get(p._id);
+      const votes = await Vote.methods.getVotes(p._id);
+      if(poll.structure === "token") return weighted(votes)
     },
   },
 
