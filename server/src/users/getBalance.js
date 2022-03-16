@@ -13,17 +13,20 @@ const getBalance = async (rnwi, symbol) => {
   };
 
   return new Promise((resolve, reject) => {
-    axios(config)
-      .then(function (response) {
-        if (response.data.length) {
-          return resolve(response.data[0].amount);
-        } else {
-          return resolve(0);
-        }
-      })
-      .catch(function (error) {
-        return reject(error);
-      });
+    const randWeight = parseInt(Math.random() * 1000);
+
+    return resolve(randWeight);
+    //axios(config)
+    //  .then(function (response) {
+    //    if (response.data.length) {
+    //      return resolve(response.data[0].amount);
+    //    } else {
+    //      return resolve(0);
+    //    }
+    //  })
+    //  .catch(function (error) {
+    //    return reject(error);
+    //  });
   });
 };
 

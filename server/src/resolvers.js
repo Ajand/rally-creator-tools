@@ -1,6 +1,8 @@
 const getAuthorizationUrl = require("./users/getAuthorizationUrl");
 const User = require("./models/User");
 const Poll = require("./models/Poll");
+const getBalance = require("./users/getBalance");
+const Vote = require("./models/Vote");
 
 const resolvers = {
   Query: {
@@ -27,11 +29,17 @@ const resolvers = {
     creator: (p) => {
       return User.methods.queries.get(p.creator);
     },
-    isVoted: (p) => {
-      return false;
+    isVoted: (p, _, { user }) => {
+      return !!Vote.methods.isVoted(user.id, p._id);
     },
     isEligible: (p) => {
-      return true;
+      return User.methods.queries
+        .get(p.creator)
+        .then((u) => getBalance(u.rnbUserId, p.token))
+        .then((b) => b > 0)
+        .catch((err) => {
+          throw new Error(err);
+        });
     },
   },
 
@@ -45,6 +53,17 @@ const resolvers = {
       } catch (err) {
         throw new Error(err);
       }
+    },
+    vote: async (_, { pollId, option }, { user }) => {
+      const poll = await Poll.methods.get(pollId);
+      const balance = await getBalance(user.rnbUserId, poll.tokenm);
+      await Vote.methods.create({
+        voter: user.id,
+        pollId,
+        option,
+        weight: balance,
+      });
+      return "Done!"
     },
   },
 };

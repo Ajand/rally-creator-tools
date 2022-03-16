@@ -25,6 +25,7 @@ const typeDefs = gql`
   type Mutation {
     authorize: String!
     createPoll(pollString: String!): String!
+    vote(pollId: ID!, option: Int!): String!
   }
 `;
 

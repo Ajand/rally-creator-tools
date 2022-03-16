@@ -45,7 +45,7 @@ const Poll = () => {
   const classes = useStyles();
   const { _id } = useParams();
 
-  const { data, loading, error } = useQuery(POLL, {
+  const { data, loading, error, refetch } = useQuery(POLL, {
     variables: { _id },
   });
 
@@ -61,8 +61,6 @@ const Poll = () => {
       <div className={classes.errorContainer}>404! Poll has not found!</div>
     );
 
-  console.log(data.poll.isVoted, data.poll.isEligible, data);
-
   return (
     <div>
       <PollWidget
@@ -70,6 +68,7 @@ const Poll = () => {
         fullSize
         isEligible={data.poll.isEligible}
         isVoted={data.poll.isVoted}
+        refetch={refetch}
       />
     </div>
   );

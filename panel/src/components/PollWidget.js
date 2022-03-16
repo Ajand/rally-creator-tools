@@ -1,6 +1,7 @@
 import { createUseStyles } from "react-jss";
 import GoogleFontLoader from "react-google-font-loader";
 import { Container, Row, Col } from "react-grid-system";
+import { useMutation, gql } from "@apollo/client";
 
 const useStyles = createUseStyles({
   fullRoot: {
@@ -76,10 +77,18 @@ const useStyles = createUseStyles({
   },
 });
 
-const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
+const VOTE = gql`
+  mutation Vote($pollId: ID!, $option: Int!) {
+    vote(pollId: $pollId, option: $option)
+  }
+`;
+
+const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
   const classes = useStyles();
 
-  const textOptions = () => {
+  const [vote] = useMutation(VOTE);
+
+  const textOptions = (votable) => {
     return (
       <div className={classes.optionsContainer}>
         {poll.basics.options
@@ -95,6 +104,20 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
                 fontStyle: poll.styles.optionFontStyle,
               }}
               className={classes.optionContainer}
+              onClick={() => {
+                if (votable) {
+                  vote({
+                    variables: {
+                      pollId: poll._id,
+                      option: i,
+                    },
+                  })
+                    .then(() => {
+                      refetch();
+                    })
+                    .catch((err) => console.log(err));
+                }
+              }}
             >
               {op.body}
             </div>
@@ -103,7 +126,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
     );
   };
 
-  const imageOptions = () => {
+  const imageOptions = (votable) => {
     return (
       <div className={classes.imageOptionsContainer}>
         {poll.basics.options
@@ -113,13 +136,27 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
               className={classes.img}
               src={`https://ipfs.io/ipfs/${op.hash}`}
               key={i}
+              onClick={() => {
+                if (votable) {
+                  vote({
+                    variables: {
+                      pollId: poll._id,
+                      option: i,
+                    },
+                  })
+                    .then(() => {
+                      refetch();
+                    })
+                    .catch((err) => console.log(err));
+                }
+              }}
             />
           ))}
       </div>
     );
   };
 
-  const textImageOptions = () => {
+  const textImageOptions = (votable) => {
     return (
       <div className={classes.optionsContainer}>
         {poll.basics.options
@@ -129,6 +166,20 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
               style={{ background: i == 0 ? "#17b3e2" : "white" }}
               className={classes.optionImageContainer}
               key={i}
+              onClick={() => {
+                if (votable) {
+                  vote({
+                    variables: {
+                      pollId: poll._id,
+                      option: i,
+                    },
+                  })
+                    .then(() => {
+                      refetch();
+                    })
+                    .catch((err) => console.log(err));
+                }
+              }}
             >
               <img
                 className={classes.imgWithText}
@@ -153,14 +204,14 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
     );
   };
 
-  const renderProper = () => {
+  const renderProper = (votable) => {
     switch (poll.basics.variant) {
       case "t":
-        return textOptions(); //<div>Hello</div>;
+        return textOptions(votable); //<div>Hello</div>;
       case "i":
-        return imageOptions(); //<div>Hello</div>;
+        return imageOptions(votable); //<div>Hello</div>;
       case "ti":
-        return textImageOptions(); //<div>Hello</div>;
+        return textImageOptions(votable); //<div>Hello</div>;
     }
   };
 
@@ -219,7 +270,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
               >
                 {poll.basics.question}
               </div>
-              {renderProper()}
+              {renderProper(true)}
             </div>
           )}
         </div>
@@ -251,7 +302,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible }) => {
           >
             {poll.basics.question}
           </div>
-          {renderProper()}
+          {renderProper(false)}
         </Container>
       </div>
     </>

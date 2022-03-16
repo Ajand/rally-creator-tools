@@ -23,13 +23,6 @@ getAllCreatorCoins()
   .catch((err) => {
     console.log(err);
   });
-/*setInterval(() => {
-  getAllCreatorCoins()
-    .then((r) => console.log(r))
-    .catch((err) => {
-      console.log(err);
-    });
-}, 60 * 1000);*/
 
 getBalance("cc3d5aec-651e-11ec-8847-0a847b2a60cc", "ADHD")
   .then((r) => console.log(r))
@@ -39,13 +32,7 @@ const User = require("./src/models/User");
 
 mongoose.connect(dbString);
 
-//wgetRegiseterToken()
-//  .then((rt) => console.log(rt))
-//  .catch((err) => console.log(err));
-
 const app = express();
-
-//require('./oauth')
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();

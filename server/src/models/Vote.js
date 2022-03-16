@@ -26,7 +26,7 @@ const VoteSchema = mongoose.Schema(
 
 const Vote = mongoose.model("vote", VoteSchema);
 
-const create = async (voter, pollId, option, weight) => {
+const create = async ({ voter, pollId, option, weight }) => {
   const isV = await isVoted();
   if (!isV) {
     const vote = new Vote({ voter, pollId, option, weight });
@@ -37,9 +37,12 @@ const create = async (voter, pollId, option, weight) => {
 };
 
 const isVoted = (voter, pollId) => {
+  console.log(voter, pollId);
   return new Promise((resolve, reject) => {
     Vote.findOne({ voter, pollId }, (err, vote) => {
       if (err) return reject(err);
+      console.log(vote);
+
       if (vote) return resolve(vote);
       return resolve(false);
     });
@@ -48,7 +51,7 @@ const isVoted = (voter, pollId) => {
 
 const getVotes = (pollId) => {
   return new Promise((resolve, reject) => {
-    Vote.find({ pollId }, (err, vote) => {
+    Vote.find({ pollId }, (err, votes) => {
       if (err) return reject(err);
       return resolve(votes);
     });
