@@ -6,6 +6,7 @@ import { useMutation, gql, useQuery } from "@apollo/client";
 import BounceLoader from "react-spinners/BounceLoader";
 
 import PollWidget from "./components/PollWidget";
+import VotesWidget from "./components/VotesWidget";
 
 const useStyles = createUseStyles({
   actions: {
@@ -79,6 +80,17 @@ const useStyles = createUseStyles({
     fontSize: "2em",
     backgroundColor: "#FEC84B",
   },
+  votesRoot: {
+    border: `3px solid black`,
+   // padding: "2em 3em",
+    borderRadius: 10,
+    background: "white",
+    boxShadow: "8px 8px black",
+    marginBottom: "2em",
+    margin: 10,
+    overflow: "hidden"
+
+  },
 });
 
 const ACTIVATE_POLL = gql`
@@ -106,6 +118,7 @@ const POLL = gql`
       active
       isVoted
       isEligible
+      votes
     }
   }
 `;
@@ -147,7 +160,11 @@ const CreatePoll = () => {
         </Col>
       </Row>
       <Row>
-        <Col md={8}></Col>
+        <Col md={8}>
+          <div className={classes.votesRoot}>
+            <VotesWidget poll={data.poll} />
+          </div>
+        </Col>
         <Col md={4}>
           <div style={{ margin: 10 }}>
             <PollWidget poll={JSON.parse(data.poll.pollString)} />
