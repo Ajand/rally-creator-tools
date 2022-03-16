@@ -73,6 +73,20 @@ const resolvers = {
       });
       return "Done!";
     },
+
+    activatePoll: async (_, { pollId }, { user }) => {
+      const poll = await Poll.methods.get(pollId);
+      if (user.id !== poll.creator) throw new Error("Unauthorized!");
+      await Poll.methods.activatePoll(pollId);
+      return "Done!";
+    },
+
+    deactivePoll: async (_, { pollId }, { user }) => {
+      const poll = await Poll.methods.get(pollId);
+      if (user.id !== poll.creator) throw new Error("Unauthorized!");
+      await Poll.methods.deactivePoll(pollId);
+      return "Done!";
+    },
   },
 };
 

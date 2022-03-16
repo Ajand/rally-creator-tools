@@ -45,7 +45,7 @@ const PollSchema = new mongoose.Schema(
     },
     active: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {
@@ -82,10 +82,44 @@ const get = (_id) => {
 
 const myPolls = (creator) => {
   return new Promise((resolve, reject) => {
-    Poll.find({creator}, (err, poll) => {
+    Poll.find({ creator }, (err, poll) => {
       if (err) return reject(err);
       return resolve(poll);
     });
+  });
+};
+
+const activatePoll = (pollId) => {
+  return new Promise((resolve, reject) => {
+    Poll.updateOne(
+      { _id: pollId },
+      {
+        $set: {
+          active: true,
+        },
+      },
+      (err, poll) => {
+        if (err) return reject(err);
+        return resolve(poll);
+      }
+    );
+  });
+};
+
+const deactivePoll = (pollId) => {
+  return new Promise((resolve, reject) => {
+    Poll.updateOne(
+      { _id: pollId },
+      {
+        $set: {
+          active: false,
+        },
+      },
+      (err, poll) => {
+        if (err) return reject(err);
+        return resolve(poll);
+      }
+    );
   });
 };
 
@@ -93,6 +127,8 @@ const methods = {
   createPoll,
   get,
   myPolls,
+  activatePoll,
+  deactivePoll,
 };
 
 module.exports = {

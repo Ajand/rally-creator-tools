@@ -27,6 +27,8 @@ const typeDefs = gql`
     authorize: String!
     createPoll(pollString: String!): String!
     vote(pollId: ID!, option: Int!): String!
+    deactivePoll(pollId: ID!): String!
+    activatePoll(pollId: ID!): String!
   }
 `;
 

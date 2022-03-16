@@ -8,7 +8,8 @@ import Signin from "./Signin";
 import PollsManager from "./PollsManager";
 import CreatePoll from "./CreatePoll";
 import OauthHandler from "./OauthHandler";
-import Poll from './Poll'
+import Poll from "./Poll";
+import PollDetails from "./PollDetails";
 
 const useStyles = createUseStyles({
   loadingContainer: {
@@ -51,7 +52,7 @@ const Router = () => {
             <Route path="/" element={<PollsManager />} />
             <Route path="/oauth/:token" element={<OauthHandler />} />
             <Route path="/create-poll" element={<CreatePoll />} />
-            <Route path="/poll-details/:_id" element={<PollsManager />} />
+            <Route path="/poll-details/:_id" element={<PollDetails />} />
             <Route path="/poll/:_id" element={<Poll />} />
           </Routes>
         </div>
