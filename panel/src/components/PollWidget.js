@@ -220,6 +220,8 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
     poll.styles.optionFontFamily,
   ]);
 
+  console.log(isVoted);
+
   if (fullSize) {
     return (
       <>
@@ -245,7 +247,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
             </div>
           )}
           {isVoted &&
-            (poll.showResult ? null : (
+            (false ? null : (
               <div
                 className={classes.errorContainer}
                 style={{
@@ -253,7 +255,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
                   color: poll.styles.questionColor,
                 }}
               >
-                You already have voted for this poll
+                Thank you for your vote for this poll
               </div>
             ))}
           {!isVoted && isEligible && (

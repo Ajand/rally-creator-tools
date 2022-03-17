@@ -8,7 +8,12 @@ const useStyles = createUseStyles({});
 const VotesWidget = ({ poll }) => {
   const classes = useStyles();
   const parsedPoll = JSON.parse(poll.pollString);
-  const total = poll.voteWeights.reduce((pV, cV) => pV + cV.amount, 0);
+
+  console.log(poll.voteWeights);
+
+  const total = poll.voteWeights
+    ? poll.voteWeights.reduce((pV, cV) => pV + cV.amount, 0)
+    : 0;
 
   return (
     <div

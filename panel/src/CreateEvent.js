@@ -4,11 +4,7 @@ import { Row, Col, Container } from "react-grid-system";
 import { useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 
-import PollBasics from "./components/PollBasics";
-import CreatorTabs from "./components/CreatorTabs";
-import PollWidget from "./components/PollWidget";
-import PollStructure from "./components/PollStructure";
-import PollStyles from "./components/PollsStyles";
+import EventStructure from "./components/EventStructure";
 
 const useStyles = createUseStyles({
   actions: {
@@ -86,39 +82,21 @@ const CREATE_POLL = gql`
   }
 `;
 
-const CreatePoll = (children) => {
+const CreateEvent = (children) => {
   const classes = useStyles();
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
 
   const [createPoll] = useMutation(CREATE_POLL);
 
-  const [poll, setPoll] = useState({
-    basics: {
-      question: "",
-      variant: "t",
-      options: [{ body: "" }, { body: "" }],
-    },
-    styles: {
-      questionFontFamily: "Work Sans",
-      questionFontVariant: "regular",
-      questionFontSize: 18,
-      questionFontStyle: "normal",
-      backgroundColor: "#FEC84B",
-      optionBackgroundColor: "#FFFFFF",
-      questionColor: "#000000",
-      optionTextColor: "#000000",
-      optionFontFamily: "Work Sans",
-      optionFontVariant: "regular",
-      optionFontSize: 16,
-      optionFontStyle: "normal",
-    },
-    structure: "simple",
+  const [ev, setEv] = useState({
     token: "",
-    showVotes: true,
+    requiredAmount: 1,
+    title: "",
   });
 
-  const canCreate = poll.basics.question && poll.token;
+  const canCreate =
+    ev.token && ev.title && !isNaN(ev.requiredAmount) && ev.requiredAmount > 0;
 
   return (
     <Container>
@@ -132,43 +110,10 @@ const CreatePoll = (children) => {
         </Col>
       </Row>
       <Row>
+        <Col md={2}></Col>
         <Col md={8}>
           <div style={{ margin: 10 }}>
-            <CreatorTabs value={value} onChange={(v) => setValue(v)} />
-          </div>
-          {value === 0 && (
-            <div style={{ margin: 10 }}>
-              <PollBasics poll={poll} setPoll={setPoll} />
-            </div>
-          )}
-          {value === 1 && (
-            <div style={{ margin: 10 }}>
-              <PollStructure poll={poll} setPoll={setPoll} />
-            </div>
-          )}
-          {value === 2 && (
-            <div style={{ margin: 10 }}>
-              <PollStyles poll={poll} setPoll={setPoll} />
-            </div>
-          )}
-        </Col>
-        <Col md={4}>
-          <div style={{ margin: 10 }}>
-            <PollWidget poll={poll} />
-          </div>
-          <div
-            style={{ margin: 10 }}
-            className={!canCreate ? classes.dCreateBtn : classes.createBtn}
-            onClick={() => {
-              if (canCreate) {
-                const pollString = JSON.stringify(poll);
-                createPoll({ variables: { pollString } })
-                  .then((r) => navigate(`/poll-details/${r.data}`))
-                  .catch((err) => console.log(err));
-              }
-            }}
-          >
-            Create Poll
+            <EventStructure ev={ev} setEv={setEv} />
           </div>
         </Col>
       </Row>
@@ -176,4 +121,4 @@ const CreatePoll = (children) => {
   );
 };
 
-export default CreatePoll;
+export default CreateEvent;

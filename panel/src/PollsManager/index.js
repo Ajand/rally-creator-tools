@@ -116,6 +116,17 @@ const useStyles = createUseStyles({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    fontSize: "1.4em ",
+    fontWeight: "bold",
+  },
+  infoRowEvent: {
+    marginTop: "1em",
+    display: "flex",
+    justifyContent: "space-between",
+    fontSize: "1.2em",
+    fontWeight: "normal",
+  },
 });
 
 const pollObj = {
@@ -165,7 +176,6 @@ const Panel = (children) => {
     votes: pl.votes,
   }));
 
-
   const renderVariant = (ty) => {
     switch (ty) {
       case "t":
@@ -188,7 +198,7 @@ const Panel = (children) => {
         </div>
         <div
           className={classes.secondaryBtn}
-          onClick={() => navigate(`/create-poll`)}
+          onClick={() => navigate(`/create-event`)}
         >
           Create A New Event
         </div>
@@ -210,7 +220,7 @@ const Panel = (children) => {
                 <div className={classes.infoRow}>
                   <div className={classes.info}>Votes: {poll.votes}</div>
                   <div className={classes.info}>
-                    Status: {poll.active ? "Active" : "In Active"}
+                    Status: {poll.active ? "Active" : "Deactive"}
                   </div>
                 </div>
                 <div className={classes.infoRow}>
@@ -226,16 +236,13 @@ const Panel = (children) => {
           </Col>
           <Col md={6}>
             <div className={classes.pollContainer}>
-              <div className={classes.question}>{pollObj.question}</div>
-              <div className={classes.infoRow}>
-                <div className={classes.info}>Type: {pollObj.type}</div>
-                <div className={classes.info}>Options: {pollObj.options}</div>
+              <div className={classes.title}>The biggest tour of this year</div>
+
+              <div className={classes.infoRowEvent}>
+                <div className={classes.info}>Available Codes: 5</div>
+                <div className={classes.info}>Status: Active</div>
               </div>
-              <div className={classes.infoRow}>
-                <div className={classes.info}>Votes: {pollObj.votes}</div>
-                <div className={classes.info}>Status: {pollObj.status}</div>
-              </div>
-              <div className={classes.infoRow}>
+              <div className={classes.infoRowEvent}>
                 <div
                   className={classes.visitButton}
                   onClick={() => navigate(`/poll-details/${pollObj._id}`)}

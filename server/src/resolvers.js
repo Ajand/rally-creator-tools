@@ -30,8 +30,8 @@ const resolvers = {
     creator: (p) => {
       return User.methods.queries.get(p.creator);
     },
-    isVoted: (p, _, { user }) => {
-      return !!Vote.methods.isVoted(user.id, p._id);
+    isVoted: async (p, _, { user }) => {
+      return !!(await Vote.methods.isVoted(user.id, p._id));
     },
     isEligible: (p) => {
       return User.methods.queries
@@ -54,7 +54,9 @@ const resolvers = {
     voteWeights: async (p) => {
       const poll = await Poll.methods.get(p._id);
       const votes = await Vote.methods.getVotes(p._id);
-      if(poll.structure === "token") return weighted(votes)
+      if (poll.structure === "token") return weighted(votes);
+      if (poll.structure === "quadritic") return quadritic(votes);
+      return normal(votes);
     },
   },
 
@@ -63,8 +65,8 @@ const resolvers = {
     createPoll: async (_, { pollString }, { user }) => {
       const pollObject = JSON.parse(pollString);
       try {
-        await Poll.methods.createPoll({ ...pollObject }, user.id);
-        return "Done";
+        const poll = await Poll.methods.createPoll({ ...pollObject }, user.id);
+        return poll._id;
       } catch (err) {
         throw new Error(err);
       }

@@ -10,6 +10,7 @@ import CreatePoll from "./CreatePoll";
 import OauthHandler from "./OauthHandler";
 import Poll from "./Poll";
 import PollDetails from "./PollDetails";
+import CreateEvent from "./CreateEvent";
 
 const useStyles = createUseStyles({
   loadingContainer: {
@@ -54,6 +55,7 @@ const Router = () => {
             <Route path="/create-poll" element={<CreatePoll />} />
             <Route path="/poll-details/:_id" element={<PollDetails />} />
             <Route path="/poll/:_id" element={<Poll />} />
+            <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
         </div>
       ) : (
