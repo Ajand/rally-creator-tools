@@ -90,6 +90,18 @@ const useStyles = createUseStyles({
     margin: 10,
     overflow: "hidden",
   },
+  metaInfo: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#5D38CE",
+    color: "white",
+  },
+  pollLink: {
+    color: 'white !important',
+    textDecoration: "none",
+    fontSize: "1.5em"
+  }
 });
 
 const ACTIVATE_POLL = gql`
@@ -138,7 +150,6 @@ const CreatePoll = () => {
   const { data, loading, error, refetch } = useQuery(POLL, {
     variables: { _id },
   });
-
 
   if (loading)
     return (
@@ -195,6 +206,17 @@ const CreatePoll = () => {
             }}
           >
             {data.poll.active ? "Deactive Poll" : "Activate Poll"}
+          </div>
+          <div style={{ margin: 10, marginTop: 20 }}>
+            <div className={classes.metaInfo}>
+              <a
+                className={classes.pollLink}
+                href={`http://localhost:3000/poll/${data.poll._id}`}
+                target="_blank"
+              >
+                The Poll Link
+              </a>
+            </div>
           </div>
         </Col>
       </Row>

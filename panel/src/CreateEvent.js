@@ -113,7 +113,14 @@ const CreateEvent = (children) => {
         <Col md={2}></Col>
         <Col md={8}>
           <div style={{ margin: 10 }}>
-            <EventStructure ev={ev} setEv={setEv} />
+            <EventStructure
+              ev={ev}
+              setEv={setEv}
+              canCreate={canCreate}
+              onCreate={() => {
+                console.log(ev);
+              }}
+            />
           </div>
         </Col>
       </Row>

@@ -23,10 +23,28 @@ const typeDefs = gql`
     voteWeights: [VoteWeight]
   }
 
+  type Event {
+    _id: ID!
+    eventId: String!
+    selectedCoin: String!
+    amount: Int!
+    owner: String!
+    isClaimable: Boolean!
+  }
+
+  type Code {
+    _id: ID!
+    claimed: Boolean!
+    claimedBy: String
+    body: String!
+  }
+
   type Query {
     me: User
     myPolls: [Poll!]!
-    poll(_id: ID!): Poll!
+    poll(_id: ID!): Poll
+    myEvents: [Event!]!
+    event(_id: ID!): Event
   }
 
   type Mutation {
@@ -35,6 +53,15 @@ const typeDefs = gql`
     vote(pollId: ID!, option: Int!): String!
     deactivePoll(pollId: ID!): String!
     activatePoll(pollId: ID!): String!
+
+    createEvent(
+      title: String!
+      selectedCoin: String!
+      amount: Int!
+    ): Event!
+    addCode(eventId: String!, body: String!): String!
+    deleteCode(codeId: ID!): String!
+    claim(eventId: String!): String!
   }
 `;
 

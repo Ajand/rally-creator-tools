@@ -3,6 +3,7 @@ import Checkbox from "./Checkbox";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import TextField from "./TextField";
 
 const useStyles = createUseStyles({
   root: {
@@ -14,7 +15,7 @@ const useStyles = createUseStyles({
     marginBottom: "2em",
   },
   section: {
-    marginBottom: "3em",
+    marginBottom: "2em",
   },
   title: {
     fontSize: 24,
@@ -34,6 +35,38 @@ const useStyles = createUseStyles({
   optionLabel: {
     marginLeft: "0.5em",
     fontSize: 24,
+  },
+  createBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#FC695C",
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "200ms",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+    "&:hover": {
+      background: "#E7564A",
+    },
+    color: "black",
+    textAlign: "center",
+  },
+  dCreateBtn: {
+    border: "3px solid black",
+    padding: "0.5em 1em",
+    borderRadius: 10,
+    background: "#FC695C",
+    cursor: "pointer",
+    fontWeight: "bold",
+    transition: "200ms",
+    fontSize: "1.2em",
+    boxShadow: "4px 4px black",
+    "&:hover": {
+      background: "#E7564A",
+    },
+    color: "black",
+    textAlign: "center",
   },
 });
 
@@ -74,7 +107,7 @@ const customStyles = {
   }),
 };
 
-const EventStructure = ({ ev, setEv }) => {
+const EventStructure = ({ ev, setEv, canCreate, onCreate }) => {
   const classes = useStyles();
   const [options, setOptions] = useState([]);
 
@@ -112,6 +145,13 @@ const EventStructure = ({ ev, setEv }) => {
     <div className={classes.root}>
       <div className={classes.section}>
         <div className={classes.section}>
+          <TextField
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            label="Event Title"
+          />
+        </div>
+        <div className={classes.section}>
           <div className={classes.titleRow}>
             <p className={classes.title}>Selected Coin:</p>
           </div>
@@ -128,6 +168,24 @@ const EventStructure = ({ ev, setEv }) => {
             />
           </div>
         </div>
+        <div className={classes.section}>
+          <TextField
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            label="Required Amount"
+          />
+        </div>
+      </div>
+      <div
+        style={{ margin: 10 }}
+        className={!canCreate ? classes.dCreateBtn : classes.createBtn}
+        onClick={() => {
+          if (canCreate) {
+            onCreate();
+          }
+        }}
+      >
+        Create Event
       </div>
     </div>
   );
