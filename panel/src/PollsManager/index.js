@@ -155,18 +155,42 @@ const MY_POLLS = gql`
   }
 `;
 
+const MY_EVENTS = gql`
+  query MyEvents {
+    myEvents {
+      _id
+      selectedCoin
+      amount
+      owner
+      isClaimable
+      title
+      codes {
+        _id
+      }
+    }
+  }
+`;
+
 const Panel = (children) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const { data, loading, error } = useQuery(MY_POLLS);
+  const {
+    data: evData,
+    loading: evLoading,
+    error: evError,
+  } = useQuery(MY_EVENTS);
 
-  if (loading || error)
+  console.log(evData, evError, evLoading);
+
+  if (loading || error || evLoading || evError) {
     return (
       <div className={classes.loadingContainer}>
         <BounceLoader size={100} color="#FEC84B" />
       </div>
     );
+  }
 
   const { myPolls } = data;
 
@@ -235,22 +259,26 @@ const Panel = (children) => {
             ))}
           </Col>
           <Col md={6}>
-            <div className={classes.pollContainer}>
-              <div className={classes.title}>The biggest tour of this year</div>
+            {evData.myEvents.map((ed, i) => (
+              <div className={classes.pollContainer} key={ed._id}>
+                <div className={classes.title}>{ed.title}</div>
 
-              <div className={classes.infoRowEvent}>
-                <div className={classes.info}>Available Codes: 5</div>
-                <div className={classes.info}>Status: Active</div>
-              </div>
-              <div className={classes.infoRowEvent}>
-                <div
-                  className={classes.visitButton}
-                  onClick={() => navigate(`/poll-details/${pollObj._id}`)}
-                >
-                  Visit
+                <div className={classes.infoRowEvent}>
+                  <div className={classes.info}>
+                    Available Codes: {ed.codes.length}
+                  </div>
+                  <div className={classes.info}>Status: Active</div>
+                </div>
+                <div className={classes.infoRowEvent}>
+                  <div
+                    className={classes.visitButton}
+                    onClick={() => navigate(`/event-details/${ed._id}`)}
+                  >
+                    Visit
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </Col>
         </Row>
       </div>

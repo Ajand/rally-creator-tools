@@ -25,11 +25,12 @@ const typeDefs = gql`
 
   type Event {
     _id: ID!
-    eventId: String!
     selectedCoin: String!
     amount: Int!
     owner: String!
     isClaimable: Boolean!
+    title: String!
+    codes: [Code!]!
   }
 
   type Code {

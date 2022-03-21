@@ -76,9 +76,11 @@ const useStyles = createUseStyles({
   },
 });
 
-const CREATE_POLL = gql`
-  mutation CreatePoll($pollString: String!) {
-    createPoll(pollString: $pollString)
+const CREATE_EVENT = gql`
+  mutation CreateEvent($title: String!, $selectedCoin: String!, $amount: Int!) {
+    createEvent(title: $title, selectedCoin: $selectedCoin, amount: $amount) {
+      _id
+    }
   }
 `;
 
@@ -87,16 +89,15 @@ const CreateEvent = (children) => {
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
 
-  const [createPoll] = useMutation(CREATE_POLL);
+  const [createEvent] = useMutation(CREATE_EVENT);
 
   const [ev, setEv] = useState({
     token: "",
-    requiredAmount: 1,
+    amount: 1,
     title: "",
   });
 
-  const canCreate =
-    ev.token && ev.title && !isNaN(ev.requiredAmount) && ev.requiredAmount > 0;
+  const canCreate = ev.token && ev.title && !isNaN(ev.amount) && ev.amount > 0;
 
   return (
     <Container>
@@ -118,7 +119,20 @@ const CreateEvent = (children) => {
               setEv={setEv}
               canCreate={canCreate}
               onCreate={() => {
-                console.log(ev);
+                console.log({
+                  title: ev.title,
+                  selectedCoin: ev.token,
+                  amount: ev.amount,
+                });
+                createEvent({
+                  variables: {
+                    title: ev.title,
+                    selectedCoin: ev.token,
+                    amount: ev.amount,
+                  },
+                })
+                  .then((r) => console.log(r))
+                  .catch((err) => console.log(err));
               }}
             />
           </div>

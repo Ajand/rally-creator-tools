@@ -56,15 +56,13 @@ const useStyles = createUseStyles({
     border: "3px solid black",
     padding: "0.5em 1em",
     borderRadius: 10,
-    background: "#FC695C",
-    cursor: "pointer",
+    background: "#c8c8c8",
+    cursor: "not-allowed",
     fontWeight: "bold",
     transition: "200ms",
     fontSize: "1.2em",
     boxShadow: "4px 4px black",
-    "&:hover": {
-      background: "#E7564A",
-    },
+
     color: "black",
     textAlign: "center",
   },
@@ -138,7 +136,7 @@ const EventStructure = ({ ev, setEv, canCreate, onCreate }) => {
   const amount = ev.amount;
   const setAmount = (t) => setEv({ ...ev, amount: t });
 
-  const title = ev.name;
+  const title = ev.title;
   const setTitle = (t) => setEv({ ...ev, title: t });
 
   return (

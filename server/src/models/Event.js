@@ -39,9 +39,9 @@ const EventSchema = mongoose.Schema(
       required: true,
     },
     active: {
-        type: Boolean,
-        default: true
-    }
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
@@ -60,9 +60,9 @@ const get = (_id) => {
   });
 };
 
-const getUserEvents = () => {
+const getUserEvents = (userId) => {
   return new Promise((resolve, reject) => {
-    Event.findOne({ _id }, (err, ev) => {
+    Event.find({ owner: userId }, (err, ev) => {
       if (err) return reject(err);
       return resolve(ev);
     });

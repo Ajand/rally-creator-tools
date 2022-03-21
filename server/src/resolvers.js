@@ -26,7 +26,9 @@ const resolvers = {
         .then((r) => ({ pollString: JSON.stringify(r), ...r._doc }));
     },
 
-    myEvents: (_, __, { user }) => {},
+    myEvents: (_, __, { user }) => {
+      return Event.getUserEvents(user._id)
+    },
 
     event: (_, { _id }, {}) => {},
   },
@@ -67,8 +69,13 @@ const resolvers = {
 
   Event: {
     isClaimable: async (e) => {
-      const availableCode = Event.getLastAvailableCode(e._id);
+      const availableCode = await Event.getLastAvailableCode(e._id);
       return !!availableCode;
+    },
+
+    codes: async (e) => {
+      const codes = await Event.getCodesOfEvent(e._id);
+      return codes;
     },
   },
 
