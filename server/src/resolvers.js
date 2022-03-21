@@ -27,10 +27,12 @@ const resolvers = {
     },
 
     myEvents: (_, __, { user }) => {
-      return Event.getUserEvents(user._id)
+      return Event.getUserEvents(user._id);
     },
 
-    event: (_, { _id }, {}) => {},
+    event: (_, { _id }, {}) => {
+      return Event.get(_id);
+    },
   },
 
   Poll: {
@@ -40,9 +42,9 @@ const resolvers = {
     isVoted: async (p, _, { user }) => {
       return !!(await Vote.methods.isVoted(user.id, p._id));
     },
-    isEligible: (p) => {
+    isEligible: (p_, { user }) => {
       return User.methods.queries
-        .get(p.creator)
+        .get(user.id)
         .then((u) => getBalance(u.rnbUserId, p.token))
         .then((b) => b > 0)
         .catch((err) => {
@@ -76,6 +78,23 @@ const resolvers = {
     codes: async (e) => {
       const codes = await Event.getCodesOfEvent(e._id);
       return codes;
+    },
+
+    isClaimed: async (p, _, { user }) => {
+      return await Event.isClaimed(user._id, p._id);
+    },
+
+    isEligible: (p) => {
+      return User.methods.queries
+        .get(p.owner)
+        .then((u) => {
+          return getBalance(u.rnbUserId, p.selectedCoin);
+        })
+        .then((b) => b > 0)
+        .catch((err) => {
+          console.log(err);
+          throw new Error(err);
+        });
     },
   },
 
@@ -122,14 +141,15 @@ const resolvers = {
 
     addCode: async (_, { eventId, body }, { user }) => {
       const eve = await Event.get(eventId);
-      if (eve.owner !== user._id) throw new Error("Unauthorized!");
-      await Event.addCode({ eventId, body });
-      return "Done!";
+      console.log(eve.owner, user._id);
+      if (eve.owner !== String(user._id)) throw new Error("Unauthorized!");
+      console.log("here??");
+      return await Event.addCode(eventId, body);
     },
 
-    deleteCode: async (_, { codeId }, { user }) => {
+    deleteCode: async (_, { codeId, eventId }, { user }) => {
       const eve = await Event.get(eventId);
-      if (eve.owner !== user._id) throw new Error("Unauthorized!");
+      if (eve.owner !== String(user._id)) throw new Error("Unauthorized!");
       await Event.deleteCode(codeId);
       return "Done!";
     },

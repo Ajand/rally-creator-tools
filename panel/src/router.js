@@ -11,6 +11,8 @@ import OauthHandler from "./OauthHandler";
 import Poll from "./Poll";
 import PollDetails from "./PollDetails";
 import CreateEvent from "./CreateEvent";
+import EventDetail from "./EventDetail";
+import CodeClaim from './CodeClaim'
 
 const useStyles = createUseStyles({
   loadingContainer: {
@@ -56,6 +58,8 @@ const Router = () => {
             <Route path="/poll-details/:_id" element={<PollDetails />} />
             <Route path="/poll/:_id" element={<Poll />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/event-details/:_id" element={<EventDetail />} />
+            <Route path="/event/:_id" element={<CodeClaim />} />
           </Routes>
         </div>
       ) : (

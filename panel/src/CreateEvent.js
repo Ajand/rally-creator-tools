@@ -77,7 +77,11 @@ const useStyles = createUseStyles({
 });
 
 const CREATE_EVENT = gql`
-  mutation CreateEvent($title: String!, $selectedCoin: String!, $amount: Int!) {
+  mutation CreateEvent(
+    $title: String!
+    $selectedCoin: String!
+    $amount: Float!
+  ) {
     createEvent(title: $title, selectedCoin: $selectedCoin, amount: $amount) {
       _id
     }
@@ -122,16 +126,18 @@ const CreateEvent = (children) => {
                 console.log({
                   title: ev.title,
                   selectedCoin: ev.token,
-                  amount: ev.amount,
+                  amount: parseFloat(ev.amount),
                 });
                 createEvent({
                   variables: {
                     title: ev.title,
                     selectedCoin: ev.token,
-                    amount: ev.amount,
+                    amount: parseFloat(ev.amount),
                   },
                 })
-                  .then((r) => console.log(r))
+                  .then((r) =>
+                    navigate(`/event-details/${r.data.createEvent._id}`)
+                  )
                   .catch((err) => console.log(err));
               }}
             />

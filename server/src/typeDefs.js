@@ -31,6 +31,9 @@ const typeDefs = gql`
     isClaimable: Boolean!
     title: String!
     codes: [Code!]!
+    isEligible: Boolean!
+    isClaimed: Code
+
   }
 
   type Code {
@@ -55,13 +58,9 @@ const typeDefs = gql`
     deactivePoll(pollId: ID!): String!
     activatePoll(pollId: ID!): String!
 
-    createEvent(
-      title: String!
-      selectedCoin: String!
-      amount: Int!
-    ): Event!
-    addCode(eventId: String!, body: String!): String!
-    deleteCode(codeId: ID!): String!
+    createEvent(title: String!, selectedCoin: String!, amount: Float!): Event!
+    addCode(eventId: String!, body: String!): Code!
+    deleteCode(eventId: String!, codeId: ID!): String!
     claim(eventId: String!): String!
   }
 `;

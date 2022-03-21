@@ -81,14 +81,12 @@ const create = ({ title, selectedCoin, amount, owner }) => {
 };
 
 const addCode = (eventId, body) => {
-  return new Promise((resolve, reject) => {
-    const code = new Code({
-      eventId,
-      body,
-    });
-
-    return code.save();
+  const code = new Code({
+    eventId,
+    body,
   });
+
+  return code.save();
 };
 
 const getCodesOfEvent = (eventId) => {
@@ -118,11 +116,12 @@ const getCode = (_id) => {
   });
 };
 
-const isClaimed = (codeId) => {
+const isClaimed = (claimer, eventId) => {
   return new Promise((resolve, reject) => {
-    Code.findOne({ _id: codeId, claimed: false }, (err, ev) => {
+    Code.findOne({ claimedBy: claimer, eventId }, (err, ev) => {
       if (err) return reject(err);
-      return resolve(ev);
+      if (ev) return resolve(ev);
+      return resolve(null);
     });
   });
 };
@@ -132,8 +131,9 @@ const deleteCode = (codeId) => {
     const cd = await getCode(codeId);
     if (cd.claimed)
       return reject(new Error("Can not delete a code that is already claimed"));
-    Code.findOne({ _id: codeId, claimed: false }, (err, ev) => {
+    Code.deleteOne({ _id: codeId, claimed: false }, (err, ev) => {
       if (err) return reject(err);
+
       return resolve(ev);
     });
   });
@@ -148,11 +148,12 @@ const claim = (eventId, claimer) => {
       {
         $set: {
           claimed: true,
-          claimer,
+          claimedBy: claimer,
         },
       },
       (err, ev) => {
         if (err) return reject(err);
+
         return resolve(getLastAvailableCode(eventId));
       }
     );

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const UserSchema = new mongoose.Schema(
   {
@@ -33,20 +34,31 @@ const User = mongoose.model("user", UserSchema);
 
 const get = (id) => {
   return new Promise((resolve, reject) => {
-    User.findOne({ id }, (err, user) => {
-      if (err) return reject(err);
-      return resolve(user);
-    });
+    if (ObjectId.isValid(id)) {
+      User.findOne({ _id: id }, (err, user) => {
+        if (err) return reject(err);
+
+        return resolve(user);
+      });
+    } else {
+      User.findOne({ id }, (err, user) => {
+        if (err) return reject(err);
+        return resolve(user);
+      });
+    }
   });
 };
 
-const create = ({ id, createdTimestamp, username, rallyNetworkWalletIds }, rnbUserId) => {
+const create = (
+  { id, createdTimestamp, username, rallyNetworkWalletIds },
+  rnbUserId
+) => {
   const user = new User({
     id,
     createdTimestamp,
     username,
     rallyNetworkWalletIds,
-    rnbUserId
+    rnbUserId,
   });
 
   return user.save();
