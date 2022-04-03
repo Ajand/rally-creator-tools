@@ -43,6 +43,8 @@ const get = (id) => {
     } else {
       User.findOne({ id }, (err, user) => {
         if (err) return reject(err);
+        console.log(user, "===============");
+
         return resolve(user);
       });
     }

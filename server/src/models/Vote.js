@@ -37,11 +37,9 @@ const create = async ({ voter, pollId, option, weight }) => {
 };
 
 const isVoted = (voter, pollId) => {
-  console.log(voter, pollId);
   return new Promise((resolve, reject) => {
     Vote.findOne({ voter, pollId }, (err, vote) => {
       if (err) return reject(err);
-      console.log(vote);
 
       if (vote) return resolve(vote);
       return resolve(false);

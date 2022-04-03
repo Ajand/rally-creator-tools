@@ -62,8 +62,8 @@ const weighted = (weightedVotes) => {
   }));
 };
 
-console.log(quadritic(testVotes1)); // {option: 1, amount: 50}, {option: 2, amount: 50}
-console.log(normal(testVotes1)); // {option: 1, amount: 50}, {option: 2, amount: 50}
-console.log(weighted(testVotes1));
+//console.log(quadritic(testVotes1)); // {option: 1, amount: 50}, {option: 2, amount: 50}
+//console.log(normal(testVotes1)); // {option: 1, amount: 50}, {option: 2, amount: 50}
+//console.log(weighted(testVotes1));
 
 module.exports = { quadritic, normal, weighted };

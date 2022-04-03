@@ -49,7 +49,6 @@ const getAllCreatorCoins = (startKey, r) => {
         })
         .catch((err) => {
           console.log(err);
-          return reject(err);
         });
     }
   });

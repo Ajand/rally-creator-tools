@@ -23,7 +23,11 @@ const resolvers = {
     poll: (_, { _id }, {}) => {
       return Poll.methods
         .get(_id)
-        .then((r) => ({ pollString: JSON.stringify(r), ...r._doc }));
+        .then((r) => ({ pollString: JSON.stringify(r), ...r._doc }))
+        .catch((err) => {
+          console.log(err);
+          throw new Error(err);
+        });
     },
 
     myEvents: (_, __, { user }) => {
@@ -37,12 +41,14 @@ const resolvers = {
 
   Poll: {
     creator: (p) => {
+      console.log(p.creator, "=-====");
       return User.methods.queries.get(p.creator);
     },
     isVoted: async (p, _, { user }) => {
       return !!(await Vote.methods.isVoted(user.id, p._id));
     },
     isEligible: (p_, { user }) => {
+      if (!user) return false;
       return User.methods.queries
         .get(user.id)
         .then((u) => getBalance(u.rnbUserId, p.token))
@@ -143,7 +149,6 @@ const resolvers = {
       const eve = await Event.get(eventId);
       console.log(eve.owner, user._id);
       if (eve.owner !== String(user._id)) throw new Error("Unauthorized!");
-      console.log("here??");
       return await Event.addCode(eventId, body);
     },
 

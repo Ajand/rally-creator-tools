@@ -98,10 +98,10 @@ const useStyles = createUseStyles({
     color: "white",
   },
   pollLink: {
-    color: 'white !important',
+    color: "white !important",
     textDecoration: "none",
-    fontSize: "1.5em"
-  }
+    fontSize: "1.5em",
+  },
 });
 
 const ACTIVATE_POLL = gql`
@@ -157,6 +157,8 @@ const CreatePoll = () => {
         <BounceLoader size={100} color="#FEC84B" />
       </div>
     );
+
+  console.log(error);
 
   if (error)
     return (

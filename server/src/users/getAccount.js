@@ -1,7 +1,6 @@
 const axios = require("axios");
 
 const getAccount = (rallyNetworkWalletId) => {
-    console.log('here???')
   const config = {
     method: "get",
     url: `https://api.rally.io/api/accounts?rallyNetworkWalletId=${rallyNetworkWalletId}`,

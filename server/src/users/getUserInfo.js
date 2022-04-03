@@ -21,7 +21,6 @@ const getUserInfo = async (code) => {
   return new Promise((resolve, reject) => {
     axios(config)
       .then(function (response) {
-        console.log(response);
         return resolve(response.data);
       })
       .catch(function (error) {

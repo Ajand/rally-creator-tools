@@ -7,7 +7,6 @@ const getAuthorizationUrl = async () => {
 
   const authHeader = `Bearer ${registerToken}`;
 
-  console.log(authHeader);
 
   const data = JSON.stringify({
     callback: callback_url,
