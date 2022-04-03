@@ -49,8 +49,6 @@ const Poll = () => {
     variables: { _id },
   });
 
-  console.log(error, loading);
-
   if (loading)
     return (
       <div className={classes.loadingContainer}>

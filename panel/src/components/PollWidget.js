@@ -220,8 +220,6 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
     poll.styles.optionFontFamily,
   ]);
 
-  console.log(isVoted);
-
   if (fullSize) {
     return (
       <>
@@ -235,19 +233,8 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
           className={classes.fullRoot}
           style={{ backgroundColor: poll.styles.backgroundColor }}
         >
-          {!isEligible && (
-            <div
-              className={classes.errorContainer}
-              style={{
-                fontFamily: poll.styles.questionFontFamily,
-                color: poll.styles.questionColor,
-              }}
-            >
-              You are not eligible for this voting
-            </div>
-          )}
-          {isVoted &&
-            (false ? null : (
+          {!poll.active ? (
+            <>
               <div
                 className={classes.errorContainer}
                 style={{
@@ -255,25 +242,52 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
                   color: poll.styles.questionColor,
                 }}
               >
-                Thank you for your vote for this poll
+                This Poll is not active anymore
               </div>
-            ))}
-          {!isVoted && isEligible && (
-            <div className={classes.fullSizeContainer}>
-              <div
-                style={{
-                  fontFamily: poll.styles.questionFontFamily,
-                  fontWeight: poll.styles?.questionFontVariant,
-                  fontSize: poll.styles.questionFontSize,
-                  fontStyle: poll.styles.questionFontStyle,
-                  color: poll.styles.questionColor,
-                  marginBottom: "2em",
-                }}
-              >
-                {poll.basics.question}
-              </div>
-              {renderProper(true)}
-            </div>
+            </>
+          ) : (
+            <>
+              {!isEligible && (
+                <div
+                  className={classes.errorContainer}
+                  style={{
+                    fontFamily: poll.styles.questionFontFamily,
+                    color: poll.styles.questionColor,
+                  }}
+                >
+                  You are not eligible for this voting
+                </div>
+              )}
+              {isVoted &&
+                (false ? null : (
+                  <div
+                    className={classes.errorContainer}
+                    style={{
+                      fontFamily: poll.styles.questionFontFamily,
+                      color: poll.styles.questionColor,
+                    }}
+                  >
+                    Thank you for your vote for this poll
+                  </div>
+                ))}
+              {!isVoted && isEligible && (
+                <div className={classes.fullSizeContainer}>
+                  <div
+                    style={{
+                      fontFamily: poll.styles.questionFontFamily,
+                      fontWeight: poll.styles?.questionFontVariant,
+                      fontSize: poll.styles.questionFontSize,
+                      fontStyle: poll.styles.questionFontStyle,
+                      color: poll.styles.questionColor,
+                      marginBottom: "2em",
+                    }}
+                  >
+                    {poll.basics.question}
+                  </div>
+                  {renderProper(true)}
+                </div>
+              )}
+            </>
           )}
         </div>
       </>
@@ -304,6 +318,7 @@ const PollWidget = ({ poll, fullSize, isVoted, isEligible, refetch }) => {
           >
             {poll.basics.question}
           </div>
+
           {renderProper(false)}
         </Container>
       </div>
