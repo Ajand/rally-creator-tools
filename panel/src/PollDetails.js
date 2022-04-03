@@ -119,6 +119,7 @@ const DEACTIVE_POLL = gql`
 const POLL = gql`
   query Poll($_id: ID!) {
     poll(_id: $_id) {
+      _id
       pollString
       creator {
         id
@@ -157,8 +158,6 @@ const CreatePoll = () => {
         <BounceLoader size={100} color="#FEC84B" />
       </div>
     );
-
-  console.log(error);
 
   if (error)
     return (
@@ -213,7 +212,7 @@ const CreatePoll = () => {
             <div className={classes.metaInfo}>
               <a
                 className={classes.pollLink}
-                href={`http://localhost:3000/poll/${data.poll._id}`}
+                href={`${process.env.REACT_APP_CLIENT}/${data.poll._id}`}
                 target="_blank"
               >
                 The Poll Link

@@ -21,6 +21,7 @@ const typeDefs = gql`
     isEligible: Boolean!
     votes: Int!
     voteWeights: [VoteWeight]
+    _id: ID!
   }
 
   type Event {

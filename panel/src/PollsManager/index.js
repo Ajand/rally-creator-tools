@@ -9,8 +9,22 @@ const useStyles = createUseStyles({
   pollsTable: {},
   actions: {
     display: "flex",
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+  },
+  leftActions: {
+    display: "flex",
+    margin: "2em",
+    marginRight: "3em",
+    //marginLeft: "3em",
+    flexDirection: "row-reverse",
+  },
+  rightActions: {
+    display: "flex",
     margin: "2em",
     flexDirection: "row-reverse",
+    //marginRight: "3em",
+    marginLeft: "3em",
   },
   button: {
     border: "3px solid black",
@@ -175,7 +189,7 @@ const Panel = (children) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const { data, loading, error } = useQuery(MY_POLLS);
+  const { data, loading, error, client } = useQuery(MY_POLLS);
   const {
     data: evData,
     loading: evLoading,
@@ -214,17 +228,30 @@ const Panel = (children) => {
   return (
     <div className={classes.root}>
       <div className={classes.actions}>
-        <div
-          className={classes.button}
-          onClick={() => navigate(`/create-poll`)}
-        >
-          Create A New Poll
+        <div className={classes.leftActions}>
+          <div
+            className={classes.button}
+            onClick={() => navigate(`/create-poll`)}
+          >
+            Create A New Poll
+          </div>
+          <div
+            className={classes.secondaryBtn}
+            onClick={() => navigate(`/create-event`)}
+          >
+            Create A New Event
+          </div>
         </div>
-        <div
-          className={classes.secondaryBtn}
-          onClick={() => navigate(`/create-event`)}
-        >
-          Create A New Event
+        <div className={classes.rightActions}>
+          <div
+            className={classes.visitButton}
+            onClick={() => {
+              localStorage.setItem("token", "");
+              client.resetStore();
+            }}
+          >
+            Logout
+          </div>
         </div>
       </div>
       <div className={classes.container}>
