@@ -1,4 +1,4 @@
-import PollWidget from "./components/PollWidget";
+import PollWidget from "../components/PollWidget";
 import { createUseStyles } from "react-jss";
 import BounceLoader from "react-spinners/BounceLoader";
 import { gql, useQuery } from "@apollo/client";

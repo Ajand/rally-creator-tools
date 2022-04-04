@@ -4,7 +4,7 @@ import { Row, Col, Container } from "react-grid-system";
 import { useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 
-import EventStructure from "./components/EventStructure";
+import EventStructure from "../components/EventStructure";
 
 const useStyles = createUseStyles({
   actions: {

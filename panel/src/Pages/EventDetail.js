@@ -1,14 +1,14 @@
 import { createUseStyles } from "react-jss";
-import Checkbox from "./components/Checkbox";
+import Checkbox from "../components/Checkbox";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import TextField from "./components/TextField";
-import AddIcon from "./components/AddIcon";
+import TextField from "../components/TextField";
+import AddIcon from "../components/AddIcon";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useParams, useNavigate } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
-import DeleteIcon from "./components/DeleteIcon";
+import DeleteIcon from "../components/DeleteIcon";
 
 const useStyles = createUseStyles({
   root: {

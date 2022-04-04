@@ -4,15 +4,15 @@ import { gql, useQuery } from "@apollo/client";
 import { createUseStyles } from "react-jss";
 import BounceLoader from "react-spinners/BounceLoader";
 
-import Signin from "./Signin";
-import PollsManager from "./PollsManager";
-import CreatePoll from "./CreatePoll";
+import Signin from "./Pages/Signin";
+import PollsManager from "./Pages/PollsManager";
+import CreatePoll from "./Pages/CreatePoll";
 import OauthHandler from "./OauthHandler";
-import Poll from "./Poll";
-import PollDetails from "./PollDetails";
-import CreateEvent from "./CreateEvent";
-import EventDetail from "./EventDetail";
-import CodeClaim from './CodeClaim'
+import Poll from "./Pages/Poll";
+import PollDetails from "./Pages/PollDetails";
+import CreateEvent from "./Pages/CreateEvent";
+import EventDetail from "./Pages/EventDetail";
+import CodeClaim from './Pages/CodeClaim'
 
 const useStyles = createUseStyles({
   loadingContainer: {

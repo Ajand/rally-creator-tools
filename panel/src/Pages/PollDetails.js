@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, gql, useQuery } from "@apollo/client";
 import BounceLoader from "react-spinners/BounceLoader";
 
-import PollWidget from "./components/PollWidget";
-import VotesWidget from "./components/VotesWidget";
+import PollWidget from "../components/PollWidget";
+import VotesWidget from "../components/VotesWidget";
 
 const useStyles = createUseStyles({
   actions: {

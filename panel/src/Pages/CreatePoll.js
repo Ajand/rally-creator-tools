@@ -4,11 +4,11 @@ import { Row, Col, Container } from "react-grid-system";
 import { useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 
-import PollBasics from "./components/PollBasics";
-import CreatorTabs from "./components/CreatorTabs";
-import PollWidget from "./components/PollWidget";
-import PollStructure from "./components/PollStructure";
-import PollStyles from "./components/PollsStyles";
+import PollBasics from "../components/PollBasics";
+import CreatorTabs from "../components/CreatorTabs";
+import PollWidget from "../components/PollWidget";
+import PollStructure from "../components/PollStructure";
+import PollStyles from "../components/PollsStyles";
 
 const useStyles = createUseStyles({
   actions: {
