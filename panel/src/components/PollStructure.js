@@ -35,6 +35,10 @@ const useStyles = createUseStyles({
     marginLeft: "0.5em",
     fontSize: 24,
   },
+  helperText: {
+    marginTop: '0.2em',
+    marginBottom: '0.5em'
+  }
 });
 
 const customStyles = {
@@ -137,6 +141,7 @@ const PollStructure = ({ poll, setPoll }) => {
           <Checkbox checked={selectedType === "simple"} />
           <p className={classes.optionLabel}>Simple Voting</p>
         </div>
+        <p className={classes.helperText}>All votes has same weight</p>
         <div
           onClick={() => setSelectedType("token")}
           className={classes.optionTypeRow}
@@ -144,6 +149,9 @@ const PollStructure = ({ poll, setPoll }) => {
           <Checkbox checked={selectedType === "token"} />
           <p className={classes.optionLabel}>Token Weighted Voting</p>
         </div>
+        <p className={classes.helperText}>
+          Each vote weighted based on voter token amount
+        </p>
         <div
           onClick={() => setSelectedType("quadratic")}
           className={classes.optionTypeRow}
@@ -151,6 +159,17 @@ const PollStructure = ({ poll, setPoll }) => {
           <Checkbox checked={selectedType === "quadratic"} />
           <p className={classes.optionLabel}>Quadatic Voting</p>
         </div>
+        <p className={classes.helperText}>
+          It means user with more tokens weighted more, but multiple users with
+          less tokens can out weight a single whale. It's an algorithm that
+          gitcoin uses to fund open source software. For more info see{" "}
+          <a
+            target="_blank"
+            href="https://www.radicalxchange.org/concepts/quadratic-voting/"
+          >
+            Radical XChange
+          </a>
+        </p>
       </div>
       <div>
         <div className={classes.titleRow}>

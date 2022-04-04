@@ -35,10 +35,13 @@ const ProgressBar = ({ completed, bgColor, textColor }) => {
     top: '-1.5em'
   };
 
+  const parsedPercent = (num) => parseFloat(num).toFixed(2);
+
+
   return (
     <div style={containerStyles}>
       <div style={fillerStyles}></div>
-      <div style={labelStyles}>{`${completed}%`}</div>
+      <div style={labelStyles}>{`${parsedPercent(completed)}%`}</div>
     </div>
   );
 };

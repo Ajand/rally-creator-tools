@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: "80%",
     height: "100vh",
     flexDirection: "column",
   },
@@ -224,19 +224,26 @@ const EventDetail = () => {
   const event = data.event;
 
   return (
-    <div>
-      <div className={classes.actions}>
-        <div className={classes.button} onClick={() => navigate(`/`)}>
-          Back
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <div style={{width: '90%'}}>
+        <div className={classes.actions}>
+          <div className={classes.button} onClick={() => navigate(`/`)}>
+            Back
+          </div>
         </div>
       </div>
 
       <div className={classes.root}>
         <div className={classes.panel}>
           {" "}
-          <a href={`/event/${eventId}`}>
-            The Code Claim Link
-          </a>
+          <a href={`/event/${eventId}`}>The Code Claim Link</a>
         </div>
 
         <div className={classes.panel}>

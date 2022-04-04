@@ -62,7 +62,7 @@ const Poll = () => {
     );
 
   return (
-    <div>
+    <div style={{height: '100%'}}>
       <PollWidget
         poll={JSON.parse(data.poll.pollString)}
         fullSize

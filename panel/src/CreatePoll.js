@@ -163,7 +163,7 @@ const CreatePoll = (children) => {
               if (canCreate) {
                 const pollString = JSON.stringify(poll);
                 createPoll({ variables: { pollString } })
-                  .then((r) => navigate(`/poll-details/${r.data}`))
+                  .then((r) => navigate(`/poll-details/${r.data.createPoll}`))
                   .catch((err) => console.log(err));
               }
             }}

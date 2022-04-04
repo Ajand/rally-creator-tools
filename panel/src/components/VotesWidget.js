@@ -9,11 +9,15 @@ const VotesWidget = ({ poll }) => {
   const classes = useStyles();
   const parsedPoll = JSON.parse(poll.pollString);
 
+
   console.log(poll.voteWeights);
 
   const total = poll.voteWeights
     ? poll.voteWeights.reduce((pV, cV) => pV + cV.amount, 0)
     : 0;
+
+
+    console.log(poll.voteWeights);
 
   return (
     <div
@@ -66,7 +70,33 @@ const VotesWidget = ({ poll }) => {
             />
           </div>
         ) : (
-          <div></div>
+          <div style={{ marginBottom: "1em" }}>
+            <div
+              style={{
+                color: parsedPoll.styles.questionColor,
+                fontFamily: parsedPoll.styles.questionFontFamily,
+                fontSize: parsedPoll.styles.questionFontSize,
+                fontStyle: parsedPoll.styles.questionFontVariant,
+                marginBottom: "0.25em",
+              }}
+            >
+              <img height={100} src={`https://ipfs.io/ipfs/${op.hash}`} />
+            </div>
+            <ProgressBar
+              completed={
+                total === 0
+                  ? 0
+                  : poll.voteWeights.find((vw) => vw.option == i)
+                  ? (parseInt(
+                      poll.voteWeights.find((vw) => vw.option == i).amount
+                    ) /
+                      total) *
+                    100
+                  : 0
+              }
+              bgColor={parsedPoll.styles.optionBackgroundColor}
+            />
+          </div>
         )
       )}
     </div>

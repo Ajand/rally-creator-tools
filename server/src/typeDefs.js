@@ -10,7 +10,7 @@ const typeDefs = gql`
 
   type VoteWeight {
     option: Int!
-    amount: Int!
+    amount: Float!
   }
 
   type Poll {

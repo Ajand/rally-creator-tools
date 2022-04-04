@@ -43,7 +43,7 @@ const resolvers = {
       return User.methods.queries.get(p.creator);
     },
     isVoted: async (p, _, { user }) => {
-      return false
+      return false;
       if (!user) return false;
       return !!(await Vote.methods.isVoted(user.id, p._id));
     },
@@ -70,7 +70,8 @@ const resolvers = {
       const poll = await Poll.methods.get(p._id);
       const votes = await Vote.methods.getVotes(p._id);
       if (poll.structure === "token") return weighted(votes);
-      if (poll.structure === "quadritic") return quadritic(votes);
+      console.log(quadritic(votes), normal(votes), poll.structure);
+      if (poll.structure === "quadratic") return quadritic(votes);
       return normal(votes);
     },
   },
