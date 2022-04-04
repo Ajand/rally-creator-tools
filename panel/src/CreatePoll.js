@@ -88,7 +88,7 @@ const CREATE_POLL = gql`
 
 const CreatePoll = (children) => {
   const classes = useStyles();
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
   const [createPoll] = useMutation(CREATE_POLL);

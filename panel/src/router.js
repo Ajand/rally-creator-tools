@@ -36,7 +36,9 @@ const ME = gql`
 `;
 
 const Router = () => {
-  const { data, loading, error } = useQuery(ME);
+  const { data, loading, error } = useQuery(ME, {
+    pollInterval: 1000
+  });
 
   const classes = useStyles();
 
@@ -57,6 +59,7 @@ const Router = () => {
             <Route path="/create-poll" element={<CreatePoll />} />
             <Route path="/poll-details/:_id" element={<PollDetails />} />
             <Route path="/poll/:_id" element={<Poll />} />
+            <Route path="/poll-embed/:_id" element={<Poll />} />
             <Route path="/create-event" element={<CreateEvent />} />
             <Route path="/event-details/:_id" element={<EventDetail />} />
             <Route path="/event/:_id" element={<CodeClaim />} />

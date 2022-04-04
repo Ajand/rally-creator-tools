@@ -22,7 +22,13 @@ const OauthHandler = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("token", params.token);
     apolloClient.resetStore();
-    window.location.replace(beforeOauthUrl);
+    console.log(beforeOauthUrl);
+    if (beforeOauthUrl.includes("embed")) {
+      window.close();
+    } else {
+      localStorage.setItem("before-oauth-redirect", "");
+      window.location.replace(beforeOauthUrl);
+    }
   }, []);
 
   return (

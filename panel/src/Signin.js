@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 
 const useStyles = createUseStyles({
@@ -44,6 +44,10 @@ const Signin = (children) => {
 
   const [authorize] = useMutation(AUTHORIZE);
 
+  const { pathname } = useLocation();
+
+  console.log();
+
   //onClick={() => navigate("polls-manager")}
   return (
     <div className={classes.root}>
@@ -51,8 +55,15 @@ const Signin = (children) => {
         onClick={() => {
           authorize()
             .then((r) => {
-              localStorage.setItem('before-oauth-redirect', window.location.href)
-              window.location.replace(r.data.authorize);
+              localStorage.setItem(
+                "before-oauth-redirect",
+                window.location.href
+              );
+              if (pathname.includes("embed")) {
+                window.open(r.data.authorize, "_blank");
+              } else {
+                window.location.replace(r.data.authorize);
+              }
             })
             .catch((err) => console.log(err));
         }}

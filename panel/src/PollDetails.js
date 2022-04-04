@@ -102,6 +102,14 @@ const useStyles = createUseStyles({
     textDecoration: "none",
     fontSize: "1.5em",
   },
+  embedDiv: {
+    marginTop: '2em'
+  },
+  embedHelp: {},
+  codeIframe: {
+    whiteSpace: 'normal',
+    marginTop: '1em'
+  },
 });
 
 const ACTIVATE_POLL = gql`
@@ -164,6 +172,13 @@ const CreatePoll = () => {
       <div className={classes.errorContainer}>404! Poll has not found!</div>
     );
 
+  const iframeCode = `<iframe
+    src="${`http://localhost:3000/poll-embed/${data.poll._id}`}"
+    height="HEIGHT"
+    width="WIDTH"
+    frameborder="0"
+  />`;
+
   return (
     <Container>
       <Row>
@@ -217,6 +232,14 @@ const CreatePoll = () => {
               >
                 The Poll Link
               </a>
+
+              <div className={classes.embedDiv}>
+                <div className={classes.embedHelp}>
+                  To Embed the poll in your webpage copy this code in your html
+                  file and change the HEIGHT and WIDTH
+                </div>
+                <div className={classes.codeIframe}>{iframeCode}</div>
+              </div>
             </div>
           </div>
         </Col>
