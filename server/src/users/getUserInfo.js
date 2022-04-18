@@ -24,10 +24,8 @@ const getUserInfo = async (code) => {
         return resolve(response.data);
       })
       .catch(function (error) {
-        console.log(
-
         console.log(error.message);
-      
+
         return reject(error);
       });
   });
