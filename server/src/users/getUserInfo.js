@@ -8,6 +8,10 @@ const getUserInfo = async (code) => {
 
   const authToken = await getRegisterToken();
 
+  console.log("============================================================");
+  console.log(authToken);
+  console.log("============================================================");
+
   const config = {
     method: "post",
     url: "https://api.rally.io/v1/oauth/userinfo",
@@ -24,6 +28,9 @@ const getUserInfo = async (code) => {
         return resolve(response.data);
       })
       .catch(function (error) {
+        console.log("============================================================");
+        console.log(error.message);
+        console.log("============================================================");
         return reject(error);
       });
   });

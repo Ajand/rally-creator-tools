@@ -7,7 +7,6 @@ const getAuthorizationUrl = async () => {
 
   const authHeader = `Bearer ${registerToken}`;
 
-
   const data = JSON.stringify({
     callback: callback_url,
   });
@@ -28,6 +27,7 @@ const getAuthorizationUrl = async () => {
         return resolve(response.data.url);
       })
       .catch(function (error) {
+        console.log(error);
         return reject(error);
       });
   });
