@@ -173,7 +173,7 @@ const CreatePoll = () => {
     );
 
   const iframeCode = `<iframe
-    src="${`http://localhost:3000/poll-embed/${data.poll._id}`}"
+    src="${`${process.env.REACT_APP_CLIENT}/poll-embed/${data.poll._id}`}"
     height="HEIGHT"
     width="WIDTH"
     frameborder="0"
@@ -227,7 +227,7 @@ const CreatePoll = () => {
             <div className={classes.metaInfo}>
               <a
                 className={classes.pollLink}
-                href={`${process.env.REACT_APP_CLIENT}/${data.poll._id}`}
+                href={`${process.env.REACT_APP_CLIENT}/poll/${data.poll._id}`}
                 target="_blank"
               >
                 The Poll Link
