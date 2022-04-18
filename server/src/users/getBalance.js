@@ -13,10 +13,7 @@ const getBalance = async (rnwi, symbol) => {
   };
 
   return new Promise((resolve, reject) => {
-    const randWeight = parseInt(Math.random() * 1000);
-
-    return resolve(randWeight);
-    axios(config)
+    return axios(config)
       .then(function (response) {
         if (response.data.length) {
           return resolve(response.data[0].amount);
