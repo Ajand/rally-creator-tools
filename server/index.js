@@ -30,7 +30,10 @@ getBalance("cc3d5aec-651e-11ec-8847-0a847b2a60cc", "ADHD")
 
 const User = require("./src/models/User");
 
-mongoose.connect(dbString);
+console.log(dbString);
+mongoose.connect(dbString, (err) => {
+  if (err) console.log(err);
+});
 
 const app = express();
 
