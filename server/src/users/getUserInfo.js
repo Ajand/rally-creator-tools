@@ -2,8 +2,6 @@ const axios = require("axios");
 const getRegisterToken = require("../getRegisterToken");
 
 const getUserInfo = async (code) => {
-  console.log(code)
-  /*
   const data = JSON.stringify({
     code,
   });
@@ -30,12 +28,16 @@ const getUserInfo = async (code) => {
         return resolve(response.data);
       })
       .catch(function (error) {
-        console.log("============================================================");
+        console.log(
+          "============================================================"
+        );
         console.log(error.message);
-        console.log("============================================================");
+        console.log(
+          "============================================================"
+        );
         return reject(error);
       });
-  });*/
+  });
 };
 
 module.exports = getUserInfo;
