@@ -120,7 +120,7 @@ const Signin = (children) => {
             </g>
           </g>
         </svg>
-        Sigin To Rally
+        Signin To Rally
       </div>
     </div>
   );

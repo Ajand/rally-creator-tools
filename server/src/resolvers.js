@@ -43,7 +43,6 @@ const resolvers = {
       return User.methods.queries.get(p.creator);
     },
     isVoted: async (p, _, { user }) => {
-      return false;
       if (!user) return false;
       return !!(await Vote.methods.isVoted(user.id, p._id));
     },
